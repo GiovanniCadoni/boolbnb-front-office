@@ -1,4 +1,5 @@
 <script>
+import AppJumbatron from '../components/AppJumbatron.vue';
 import AppMain from '../components/AppMain.vue';
 
     export default {
@@ -7,12 +8,13 @@ import AppMain from '../components/AppMain.vue';
 
         };
     },
-    components: { AppMain }
+    components: { AppMain, AppJumbatron }
 }
 </script>
 
 <template>
-    <h2>Questa è la Homepage</h2>
+    <!-- <h2>Questa è la Homepage</h2> -->
+    <AppJumbatron />
     <AppMain />
 </template>
 
