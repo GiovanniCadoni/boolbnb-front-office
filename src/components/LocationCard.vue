@@ -20,6 +20,11 @@ export default {
 <style lang="scss">
     .my-card{
 
+        img{
+            height: 350px;
+            width: 315px;
+        }
+
         .card-name{
             bottom: 10%;
             left: 0;
