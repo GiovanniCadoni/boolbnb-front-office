@@ -12,7 +12,7 @@ export default {
     created() {
         axios.get(`http://127.0.0.1:8000/api/apartments`, {
             params: {
-                address: "New York"
+                address: "Roma"
             }
         }).then((resp) => {
             this.sponsoreds = resp.data.results.data
@@ -24,8 +24,8 @@ export default {
 </script>
 
 <template>
-    <div class="container">
-        <h3 class="pb-4">Highly-rated hotels</h3>
+    <div class="container py-5">
+        <h3 class="pb-4 fw-bold">Highly-rated hotels</h3>
         <div class="row row-cols-6">
             <div class="col" v-for="(sponsored) in sponsoreds">
                 <HighlyRatedCard :sponsored="sponsored" />

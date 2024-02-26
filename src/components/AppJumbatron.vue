@@ -38,12 +38,13 @@ export default {
 <template>
     <div class="background">
         <div class="container">
-            <h1 class="text-start title pt-5">Scegli la <strong class="evidenced">Destinazione</strong><br> e parti <br> per il tuo <strong class="evidenced">Viaggio</strong></h1>
+            <h1 class="text-start title pt-5">Scegli la <strong class="evidenced px-3">Destinazione</strong><br> e parti <br> per il tuo <strong class="evidenced px-3">Viaggio</strong></h1>
         </div>
-        <div class="ms_container d-flex justify-content-around p-2">
-            <h4 class="d-none d-sm-block">Inizia la tua ricerca</h4>
-            <input class="form-width form-control form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()">
-            <button class="btn btn-success" @click="searchByAddress()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="ms_container d-flex justify-content-center align-items-center gap-3 py-2">
+            <h4 class="d-none d-sm-block">Inizia qui la tua ricerca</h4>
+            <!-- <input class="form-width form-control form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()"> -->
+            <!-- <button class="btn btn-primary px-4" @click="searchByAddress()"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+            <router-link :to="{ name: 'research' }" class="nav-link"><button class="btn btn-primary px-4"><i class="fa-solid fa-magnifying-glass"></i></button></router-link>
         </div>
         
     </div>

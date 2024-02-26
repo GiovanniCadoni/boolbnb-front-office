@@ -57,13 +57,13 @@ export default {
 <template>
     <div class="wrapper">
         <div class="row g-0">
-            <div class="col-2 px-0">
+            <div class="col-2 px-3 py-4">
                 <h4>Indirizzo</h4>
                 <input class="form-width form-control form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()">
             </div>
-            <div class="col px-0 py-5">
+            <div class="col-10 px-2 py-4">
                 <div class="container">
-                    <div class="row gy-5 row-cols-4 flex-wrap">
+                    <div class="row gy-4 row-cols-4 flex-wrap">
                         <div class="col" v-for="(apartment) in apartments">
                             <BaseCard :item="apartment"/>
                         </div>
@@ -79,7 +79,7 @@ export default {
 .wrapper {
     height: calc(100vh - 258px);
     width: 100%;
-    overflow-y: auto;
+    overflow-y: auto
 }
 
 </style>
