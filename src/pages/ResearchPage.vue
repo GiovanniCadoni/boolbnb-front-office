@@ -56,16 +56,19 @@ export default {
 
 <template>
     <div class="wrapper">
-        <div class="row">
-            <div class="col-3">
+        <div class="row g-0">
+            <div class="col-2 px-0">
                 FILTRI
             </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col" v-for="(apartment) in apartments">
-                        <HighlyRatedCard :sponsored="apartment"/>
-                    </div>
+            <div class="col px-0 py-5">
+                <div class="container">
+                    <div class="row gy-5 row-cols-4 flex-wrap">
+                        <div class="col" v-for="(apartment) in apartments">
+                            <HighlyRatedCard :sponsored="apartment"/>
+                        </div>
+                    </div>  
                 </div>
+                
             </div>
         </div>
     </div>
@@ -73,6 +76,9 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-    height: calc(100vh - 56px);
+    height: calc(100vh - 258px);
+    width: 100%;
+    overflow-y: auto;
 }
+
 </style>
