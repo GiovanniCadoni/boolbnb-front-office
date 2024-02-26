@@ -23,4 +23,5 @@ import AppHeader from './components/AppHeader.vue';
 
 <style lang="scss">
   @use "./styles/general.scss" as *;
+  @import "@fortawesome/fontawesome-free/css/all.css";
 </style>
