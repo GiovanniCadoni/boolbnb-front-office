@@ -12,11 +12,11 @@ export default {
     created() {
         axios.get(`http://127.0.0.1:8000/api/apartments`, {
             params: {
-                address: "roma"
+                address: "New York"
             }
         }).then((resp) => {
             this.sponsoreds = resp.data.results.data
-            // console.log(this.sponsoreds)
+            console.log(this.sponsoreds)
         })
     },
     components: { HighlyRatedCard }

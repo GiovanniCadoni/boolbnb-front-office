@@ -6,20 +6,30 @@ export default {
         return {
             baseUrl    : 'http://127.0.0.1:8000',
             address : '',
-            apartments: []
+            apartments: [],
+            errorMessage: '',
+            loading: false,
         }
     },
     methods: {     
         searchByAddress() {
+            this.loading = true;
             axios.get(`${this.baseUrl}/api/apartments`, {
                 params: {
                     address: this.address
                 }
             }).then((resp) => {
-                
-                this.apartments = resp.data.results.data
-                console.log(this.apartments)
-            })
+                if(resp.data.success == false){
+                    this.errorMessage = resp.data.message
+                } else if(resp.data.success == true && resp.data.results.data.length == 0){
+                    this.errorMessage = 'Nessun appartamento trovato'
+                }else {
+                    this.apartments = resp.data.results.data
+                    console.log(this.apartments)
+                }
+            }).finally(() => {
+                this.loading = false;
+            });
         }
     }
 }
@@ -33,6 +43,7 @@ export default {
         <div class="ms_container d-flex justify-content-around p-2">
             <h4 class="d-none d-sm-block">Inizia la tua ricerca</h4>
             <input class="form-width form-control form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()">
+            <button class="btn btn-success" @click="searchByAddress()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         
     </div>
