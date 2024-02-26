@@ -6,7 +6,8 @@ export default {
         return {
             baseUrl    : 'http://127.0.0.1:8000',
             address : '',
-            apartments: []
+            apartments: [],
+            errorMessage: ''
         }
     },
     methods: {     
@@ -17,8 +18,13 @@ export default {
                 }
             }).then((resp) => {
                 
-                this.apartments = resp.data.results.data
-                console.log(this.apartments)
+                if(resp.data.success == false){
+                    this.errorMessage = resp.data.message
+                } else if(resp.data.success == true && resp.data.results.data.length == 0){
+                    this.errorMessage = 'Nessun appartamento trovato'
+                }else {
+                    this.apartments = resp.data.results.data
+                }
             })
         }
     }
