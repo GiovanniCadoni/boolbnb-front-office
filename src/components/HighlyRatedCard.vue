@@ -7,17 +7,17 @@ export default {
         return {
             name: this.sponsored.title,
             location: this.sponsored.address,
-            img: this.sponsored.images.image_path,
             baseUrl: "http://127.0.0.1:8000",
         }
-    }
+    },
 }
 </script>
 
 <template>
     <div class="d-flex flex-column justify-content-between rounded-4 p-2 my-card">
         <div class="mb-2">
-            <img class="rounded-4 like" :src="`${baseUrl}/storage/${img}`" alt="">
+            <img v-if="this.sponsored.images != '' " class="rounded-4 like" :src="`${baseUrl}/storage/${this.sponsored.images[0].image_path}`" alt="">
+            <p v-else>Nessuna Immagine Disponibile</p>
             <span></span>
         </div>
         <div>
