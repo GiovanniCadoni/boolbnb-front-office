@@ -1,9 +1,7 @@
 <script>
 export default {
     props: {
-        name: String,
-        location: String,
-        path: String,
+        sponsored: Array,
     },
     data() {
         return {

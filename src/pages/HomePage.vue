@@ -1,5 +1,7 @@
 <script>
 import AppMain from '../components/AppMain.vue';
+import HighlyRatedCard from '../components/HighlyRatedCard.vue';
+import HighlyRatedSection from '../components/HighlyRatedSection.vue'
 
     export default {
     data() {
@@ -7,13 +9,15 @@ import AppMain from '../components/AppMain.vue';
 
         };
     },
-    components: { AppMain }
+    components: { AppMain, HighlyRatedCard, HighlyRatedSection }
 }
 </script>
 
 <template>
     <h2>Questa è la Homepage</h2>
     <AppMain />
+    <HighlyRatedCard />
+    <HighlyRatedSection />
 </template>
 
 <style lang="scss" scoped>
