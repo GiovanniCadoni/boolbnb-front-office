@@ -14,9 +14,6 @@ import HighlyRatedSection from '../components/HighlyRatedSection.vue'
 </script>
 
 <template>
-    <h2>Questa è la Homepage</h2>
-    <AppMain />
-    <HighlyRatedCard />
     <HighlyRatedSection />
 </template>
 
