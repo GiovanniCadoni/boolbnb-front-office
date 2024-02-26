@@ -29,14 +29,18 @@ export default {
 <style lang="scss">
     .my-card{
 
+        height: 335px;
+        width: 300px;
+        border-radius: 50px;
+        border: 1px solid black;
+        display: flex;
         cursor: pointer;
         
 
-        img{
-            height: 350px;
-            width: 300px;
-            border-radius: 50px;
-        }
+            img{
+                border-radius: 50px;
+                object-fit: contain;
+            }
 
         .card-name{
             bottom: 10%;
