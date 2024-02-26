@@ -1,6 +1,8 @@
 <script>
 import AppJumbatron from '../components/AppJumbatron.vue';
 import AppMain from '../components/AppMain.vue';
+import HighlyRatedCard from '../components/HighlyRatedCard.vue';
+import HighlyRatedSection from '../components/HighlyRatedSection.vue'
 
     export default {
     data() {
@@ -8,7 +10,7 @@ import AppMain from '../components/AppMain.vue';
 
         };
     },
-    components: { AppMain, AppJumbatron }
+    components: { AppMain, HighlyRatedCard, HighlyRatedSection, AppJumbatron }
 }
 </script>
 
@@ -16,6 +18,7 @@ import AppMain from '../components/AppMain.vue';
     <!-- <h2>Questa è la Homepage</h2> -->
     <AppJumbatron />
     <AppMain />
+    <HighlyRatedSection />
 </template>
 
 <style lang="scss" scoped>
