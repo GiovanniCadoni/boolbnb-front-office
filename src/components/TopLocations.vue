@@ -1,5 +1,6 @@
 <template>
-    <section class="top-locations d-flex justify-content-between">
+    <section class="top-locations p-5">
+        <h3 class="mb-3">Top Rated Locations</h3>
         <!--<div class="row w-100 d-flex gap-3">
             <div v-for="(location, index) in locations" :key="index" :class="(index % 2) === 0 && index !== 0 ? 'd-none': 'col-2'">
                         <div v-if="(index === 0) || ((index % 3) === 0)">
@@ -13,15 +14,13 @@
                         <div v-else class="d-none"></div>
             </div>
         </div> -->
-
-        <div class="row d-flex g-5">
-            <div v-for="(location, index) in locations" :key="index" class="col-3">
-                        <LocationCard :propName="location.name" :propImage="location.image" />
+        <div class="w-100 my-0 mx-auto d-flex justify-content-center ">
+            <div class="row location-row">
+                <div v-for="(location, locationIndex) in locations" :key="locationIndex" class="col-4 mb-3 d-flex justify-content-center">
+                            <LocationCard :propName="location.name" :propImage="location.image" @click="searchByClick(locationIndex)" />
+                </div>
             </div>
         </div>
-
-        
-        
     </section>
 </template>
 <script>
@@ -61,19 +60,36 @@ export default {
                     image: "https://media.discordapp.net/attachments/1206904820351639612/1210518067885510737/Image_7.png?ex=65ead9cd&is=65d864cd&hm=15abed0b37a542f882d2d71c572399d1e5a792b210e0f901ffa3c1f66ecb0577&=&format=webp&quality=lossless",
                 },
             ],
+
+            baseUrl: 'http://127.0.0.1:8000',
+            apartments: [],
+            errorMessage: ''
     };
   },
   components: { LocationCard },
 
   methods:{
-    // getCol: function (index){
-    //     if(index === 0 || index % 3 === 0){
-    //         return true;
-    //     }
-    // }
+    searchByClick(index) {
+        axios.get(this.baseUrl + '/api/apartments?address=' + this.locations[index].name, {
+            }).then((resp) => {
+                if(resp.data.success == false){
+                    this.errorMessage = resp.data.message
+                    console.log("Suca");
+                } else if(resp.data.success == true && resp.data.results.data.length == 0){
+                    this.errorMessage = 'Nessun appartamento trovato'
+                    console.log("Nessun appartamento trovato");
+                } else {
+                    this.apartments = resp.data.results.data
+                    console.log("Successo", resp.data.results.data);
+                }
+            })
+
+        }
   }
 };
 </script>
 <style lang="scss" scoped>
-    
+    .location-row{
+        overflow-y: auto;
+    }
 </style>
