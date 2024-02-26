@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import HighlyRatedCard from "../components/HighlyRatedCard.vue"
+import BaseCard from "../components/BaseCard.vue"
 
 export default {
     data() {
@@ -11,7 +11,7 @@ export default {
         };
     },
     components: {
-        HighlyRatedCard
+        BaseCard
     },
     created() {
         this.getApartments()
@@ -58,13 +58,14 @@ export default {
     <div class="wrapper">
         <div class="row g-0">
             <div class="col-2 px-0">
-                FILTRI
+                <h4>Indirizzo</h4>
+                <input class="form-width form-control form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()">
             </div>
             <div class="col px-0 py-5">
                 <div class="container">
                     <div class="row gy-5 row-cols-4 flex-wrap">
                         <div class="col" v-for="(apartment) in apartments">
-                            <HighlyRatedCard :sponsored="apartment"/>
+                            <BaseCard :item="apartment"/>
                         </div>
                     </div>  
                 </div>
