@@ -10,19 +10,32 @@ export default {
         propName: String,
         propImage: String,
     },
+    methods:{
+        // handleClick(){
+        //     this.$emit('location-clicked');
+        // }
+    },
     data(){
         return{
             
         };
     },
+
+    methods: {
+        
+    }
 }
 </script>
 <style lang="scss">
     .my-card{
 
+        cursor: pointer;
+        
+
         img{
             height: 350px;
-            width: 315px;
+            width: 300px;
+            border-radius: 50px;
         }
 
         .card-name{
