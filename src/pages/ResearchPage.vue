@@ -7,7 +7,7 @@ export default {
         return {
             baseUrl     : 'http://127.0.0.1:8000',
             apartments  : [],
-            services    : []
+            services    : [],
         };
     },
     components: {
@@ -16,6 +16,11 @@ export default {
     created() {
         this.getApartments()
         this.getServices()
+    },
+    mounted(){
+        const apartmentsTest = this.$route.query.apartmentsTest;
+        console.log("Here:", apartmentsTest);
+        this.searchFromOtherPage(apartmentsTest);
     },
     methods: {
         getApartments() {
@@ -49,7 +54,17 @@ export default {
             }).finally(() => {
                 this.loading = false;
             });
-        }
+        },
+        searchFromOtherPage(newApartments){
+            axios.get(newApartments, {
+                params: {
+                    address: this.address
+                }
+            }).then((resp) => {
+                this.address = newApartments;
+                this.searchByAddress();
+            })
+        },
     }
 }
 </script>
