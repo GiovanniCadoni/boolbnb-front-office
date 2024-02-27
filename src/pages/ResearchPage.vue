@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import BaseCard from "../components/BaseCard.vue"
+import PreviewCard from '../components/PreviewCard.vue';
 
 export default {
     data() {
@@ -12,8 +13,9 @@ export default {
         };
     },
     components: {
-        BaseCard
-    },
+    BaseCard,
+    PreviewCard
+},
     created() {
         this.getApartments()
         this.getServices()
@@ -73,9 +75,9 @@ export default {
             </div>
             <div class="col-10 px-2 py-4">
                 <div class="container">
-                    <div class="row gy-4 row-cols-4 flex-wrap">
-                        <div class="col" v-for="(apartment) in apartments">
-                            <BaseCard :item="apartment"/>
+                    <div class="row gy-4 justify-content-center flex-wrap">
+                        <div class="col-9" v-for="(apartment) in apartments">
+                            <PreviewCard :apartment="apartment" />
                         </div>
                     </div>  
                 </div>
