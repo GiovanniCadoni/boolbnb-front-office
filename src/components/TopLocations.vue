@@ -75,31 +75,49 @@ export default {
         <h3 class="mb-3">Top Rated Locations</h3>
         <div class="row row-cols-4">
             <div class="col">
-                <img class="big-image" @click="searchByClick(0)" :src="this.locations[0].image" alt="">
+                <div class="big-image">
+                    <img @click="searchByClick(0)" :src="this.locations[0].image" alt="">
+                    <span class="border rounded-pill bg-light p-1">{{ this.locations[0].name }}</span>
+                </div>
             </div>
             <div class="col">
                 <div class="container">
                     <div class="row flex-column ms_gap">
                         <div class="col">
-                            <img class="mid-image" @click="searchByClick(1)" :src="this.locations[1].image" alt="">
+                            <div class="mid-image">
+                                <img @click="searchByClick(1)" :src="this.locations[1].image" alt="">
+                                <span class="border rounded-pill bg-light p-1">{{ this.locations[1].name }}</span>
+                            </div>
                         </div>
                         <div class="col">
-                            <img class="small-image" @click="searchByClick(2)" :src="this.locations[2].image" alt="">
+                            <div class="small-image">
+                                <img @click="searchByClick(2)" :src="this.locations[2].image" alt="">
+                                <span class="border rounded-pill bg-light p-1">{{ this.locations[2].name }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col h-100">
-                <img class="big-image" @click="searchByClick(3)" :src="this.locations[3].image" alt="">
+            <div class="col">
+                <div class="big-image">
+                    <img @click="searchByClick(3)" :src="this.locations[3].image" alt="">
+                    <span class="border rounded-pill bg-light p-1">{{ this.locations[3].name }}</span>
+                </div>
             </div>
-            <div class="col h-100">
+            <div class="col">
                 <div class="container">
                     <div class="row flex-column ms_gap">
                         <div class="col">
-                            <img class="small-image" @click="searchByClick(4)" :src="this.locations[4].image" alt="">
+                            <div class="mid-image">
+                                <img @click="searchByClick(4)" :src="this.locations[4].image" alt="">
+                                <span class="border rounded-pill bg-light p-1">{{ this.locations[4].name }}</span>
+                            </div>
                         </div>
                         <div class="col">
-                            <img class="mid-image" @click="searchByClick(5)" :src="this.locations[5].image" alt="">
+                            <div class="small-image">
+                                <img @click="searchByClick(5)" :src="this.locations[5].image" alt="">
+                                <span class="border rounded-pill bg-light p-1">{{ this.locations[5].name }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -141,24 +159,42 @@ export default {
 }
 
 .big-image{
-    height: 300px;
-    width: 100%;
+    height: 335px;
 }
 
 .small-image{
-    height: calc(125px - 1.25rem);
-    width: 100%;
+    height: calc(135px - 1.25rem);
+    
 }
 
 .mid-image{
-    height: calc(175px - 1.25rem);
-    width: 100%;
+    height: calc(200px - 1.25rem);
 }
 
 [class*="-image"]{
-    border-radius: 25px;
-    object-fit: cover;
+    img{
+        height: 100%;
+        width: 300px;
+        border-radius: 25px;
+        object-fit: cover;
+    }
+
+    span{
+        position: relative;
+        bottom: 2.5rem;
+        left: 1rem;
+        font-weight: bold;
+    }
 
     cursor: pointer;
+}
+
+[class*="-image"]:hover{
+    
+    border: 5px solid #0d6efd;
+    border-radius: calc(25px + 5px);
+    span{
+        color: #f31c19;
+    }
 }
 </style>
