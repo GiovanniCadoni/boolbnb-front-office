@@ -75,31 +75,31 @@ export default {
         <h3 class="mb-3">Top Rated Locations</h3>
         <div class="row row-cols-4">
             <div class="col">
-                <img src="https://media.discordapp.net/attachments/1206904820351639612/1210518068480974858/Image_5.png?ex=65ead9cd&is=65d864cd&hm=89718d399df6807f0efc44f19c5831229d6f0725a251177a1e0a387809e8da27&=&format=webp&quality=lossless" alt="">
+                <img class="big-image" @click="searchByClick(0)" :src="this.locations[0].image" alt="">
             </div>
             <div class="col">
                 <div class="container">
                     <div class="row flex-column ms_gap">
                         <div class="col">
-                            <img src="https://media.discordapp.net/attachments/1206904820351639612/1210518069336875018/Image_3.png?ex=65ead9ce&is=65d864ce&hm=2912d49b7686a408249ff020171d10a498acad3887bbceec93306cb80f05eb41&=&format=webp&quality=lossless" alt="">
+                            <img class="mid-image" @click="searchByClick(1)" :src="this.locations[1].image" alt="">
                         </div>
                         <div class="col">
-                            <img src="https://media.discordapp.net/attachments/1206904820351639612/1210518068984545290/Image_4.png?ex=65ead9cd&is=65d864cd&hm=59a44498a47c7bdc41b4ea3ae52a12f2b3875a920f7058b343a14b571a14c769&=&format=webp&quality=lossless" alt="">
+                            <img class="small-image" @click="searchByClick(2)" :src="this.locations[2].image" alt="">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col h-100">
-                <img src="https://media.discordapp.net/attachments/1206904820351639612/1210518069621956658/Image_2.png?ex=65ead9ce&is=65d864ce&hm=6f4b846ec861c5c82f7683ae690dd5f080aa4a103032d5770eb3774d93b1c47b&=&format=webp&quality=lossless" alt="">
+                <img class="big-image" @click="searchByClick(3)" :src="this.locations[3].image" alt="">
             </div>
             <div class="col h-100">
                 <div class="container">
                     <div class="row flex-column ms_gap">
                         <div class="col">
-                            <img src="https://media.discordapp.net/attachments/1206904820351639612/1210518068204408853/Image_6.png?ex=65ead9cd&is=65d864cd&hm=105686abaed6c7d438a774e565c4acba09fd0256d9146e7b4b0c331da24074d4&=&format=webp&quality=lossless" alt="">
+                            <img class="small-image" @click="searchByClick(4)" :src="this.locations[4].image" alt="">
                         </div>
                         <div class="col">
-                            <img src="https://media.discordapp.net/attachments/1206904820351639612/1210518067885510737/Image_7.png?ex=65ead9cd&is=65d864cd&hm=15abed0b37a542f882d2d71c572399d1e5a792b210e0f901ffa3c1f66ecb0577&=&format=webp&quality=lossless" alt="">
+                            <img class="mid-image" @click="searchByClick(5)" :src="this.locations[5].image" alt="">
                         </div>
                     </div>
                 </div>
@@ -138,5 +138,27 @@ export default {
 // }
 .ms_gap{
     gap: 2.5rem;
+}
+
+.big-image{
+    height: 300px;
+    width: 100%;
+}
+
+.small-image{
+    height: calc(125px - 1.25rem);
+    width: 100%;
+}
+
+.mid-image{
+    height: calc(175px - 1.25rem);
+    width: 100%;
+}
+
+[class*="-image"]{
+    border-radius: 25px;
+    object-fit: cover;
+
+    cursor: pointer;
 }
 </style>
