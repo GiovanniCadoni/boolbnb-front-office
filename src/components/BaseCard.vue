@@ -15,7 +15,7 @@ export default {
     <div class="d-flex flex-column justify-content-between rounded-4 g-3 my-card">
         <div class="mb-2">
             <img v-if="this.item.images != '' " class="rounded-4 like" :src="`${baseUrl}/storage/${this.item.images[0].image_path}`" alt="">
-            <p v-else>Nessuna Immagine Disponibile</p>
+            <img v-else src="../assets/img/missing-image.png" alt="">
             <span></span>
         </div>
         <div>
