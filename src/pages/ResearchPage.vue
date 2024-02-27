@@ -8,6 +8,7 @@ export default {
             baseUrl     : 'http://127.0.0.1:8000',
             apartments  : [],
             services    : [],
+            address     : ''
         };
     },
     components: {
@@ -16,24 +17,18 @@ export default {
     created() {
         this.getApartments()
         this.getServices()
-    },
-    mounted(){
         const apartmentsTest = this.$route.query.apartmentsTest;
-        console.log("Here:", apartmentsTest);
         this.searchFromOtherPage(apartmentsTest);
     },
     methods: {
         getApartments() {
             axios.get(`${this.baseUrl}/api/apartments`).then((resp) => {
                 this.apartments = resp.data.results.data
-                console.log(this.apartments);
             })
         },
         getServices() {
             axios.get(`${this.baseUrl}/api/services`).then((resp) => {
-
                 this.services = resp.data.results
-                console.log(this.services);
             })
         },
         searchByAddress() {
@@ -49,7 +44,6 @@ export default {
                     this.errorMessage = 'Nessun appartamento trovato'
                 } else {
                     this.apartments = resp.data.results.data
-                    console.log(this.apartments)
                 }
             }).finally(() => {
                 this.loading = false;
@@ -61,6 +55,7 @@ export default {
                     address: this.address
                 }
             }).then((resp) => {
+                console.log(resp);
                 this.address = newApartments;
                 this.searchByAddress();
             })

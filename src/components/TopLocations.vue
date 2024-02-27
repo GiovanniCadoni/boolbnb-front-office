@@ -1,30 +1,3 @@
-<template>
-    <section class="top-locations p-5">
-        <h3 class="mb-3">Top Rated Locations</h3>
-        <!--<div class="row w-100 d-flex gap-3">
-            <div v-for="(location, index) in locations" :key="index" :class="(index % 2) === 0 && index !== 0 ? 'd-none': 'col-2'">
-                        <div v-if="(index === 0) || ((index % 3) === 0)">
-                            <LocationCard :propName="location.name" :propImage="location.image" />
-                        </div>
-                        <div v-else-if="(index !== 0)">   && ((index % 3) !== 0) && ((index % 2) !== 0) 
-                            <div v-for="(location, index) in locations" :key="index" :class="(index === 0) || ((index % 3) === 0) ? 'd-none' : 'row-6 pb-3'">
-                                    <LocationCard :propName="location.name" :propImage="location.image" />
-                            </div>
-                        </div>
-                        <div v-else class="d-none"></div>
-            </div>
-        </div> -->
-        <div class="w-100 my-0 mx-auto d-flex justify-content-center ">
-            <div class="row location-row">
-                <div v-for="(location, locationIndex) in locations" :key="locationIndex" class="col-4 mb-3 d-flex justify-content-center">
-                            <!-- <router-link :to="{ name: 'research' }" class="nav-link"> -->
-                                <LocationCard :propName="location.name" :propImage="location.image" v-model.trim="address" @click="searchByClick(locationIndex)" />
-                            <!-- </router-link> -->
-                        </div>
-            </div>
-        </div>
-    </section>
-</template>
 <script>
 import axios from "axios";
 import LocationCard from './LocationCard.vue';
@@ -63,9 +36,9 @@ export default {
                 },
             ],
 
-            baseUrl: 'http://127.0.0.1:8000',
-            apartments: [],
-            errorMessage: ''
+        baseUrl: 'http://127.0.0.1:8000',
+        apartments: [],
+        errorMessage: ''
     };
   },
   components: { LocationCard },
@@ -80,17 +53,13 @@ export default {
                 
                 if(resp.data.success == false){
                     this.errorMessage = resp.data.message
-                    console.log("Errore");
                 } else if(resp.data.success == true && resp.data.results.data.length == 0){
                     this.errorMessage = 'Nessun appartamento trovato'
-                    console.log("Nessun appartamento trovato");
                 } else {
                     this.apartments = resp.data.results.data
-                    console.log("Successo", this.apartments[0].address);
                      this.$router.push({
                          path: 'research',
                          query: {
-                            //  apartmentsTest: this.apartments[0].address
                              apartmentsTest: this.locations[index].name
                          }
                     });
@@ -101,6 +70,33 @@ export default {
   }
 };
 </script>
+<template>
+    <section class="top-locations p-5">
+        <h3 class="mb-3">Top Rated Locations</h3>
+        <!--<div class="row w-100 d-flex gap-3">
+            <div v-for="(location, index) in locations" :key="index" :class="(index % 2) === 0 && index !== 0 ? 'd-none': 'col-2'">
+                        <div v-if="(index === 0) || ((index % 3) === 0)">
+                            <LocationCard :propName="location.name" :propImage="location.image" />
+                        </div>
+                        <div v-else-if="(index !== 0)">   && ((index % 3) !== 0) && ((index % 2) !== 0) 
+                            <div v-for="(location, index) in locations" :key="index" :class="(index === 0) || ((index % 3) === 0) ? 'd-none' : 'row-6 pb-3'">
+                                    <LocationCard :propName="location.name" :propImage="location.image" />
+                            </div>
+                        </div>
+                        <div v-else class="d-none"></div>
+            </div>
+        </div> -->
+        <div class="w-100 my-0 mx-auto d-flex justify-content-center ">
+            <div class="row location-row">
+                <div v-for="(location, locationIndex) in locations" :key="locationIndex" class="col-4 mb-3 d-flex justify-content-center">
+                            <!-- <router-link :to="{ name: 'research' }" class="nav-link"> -->
+                                <LocationCard :propName="location.name" :propImage="location.image" v-model.trim="address" @click="searchByClick(locationIndex)" />
+                            <!-- </router-link> -->
+                        </div>
+            </div>
+        </div>
+    </section>
+</template>
 <style lang="scss" scoped>
     .location-row{
         overflow-y: auto;

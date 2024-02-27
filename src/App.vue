@@ -6,7 +6,7 @@ import AppHeader from './components/AppHeader.vue';
   export default {
     data() {
       return {
-
+        address: ''
       }
     },
     components: { AppHeader, AppFooter }

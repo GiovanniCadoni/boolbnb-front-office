@@ -25,7 +25,12 @@ export default {
                     this.errorMessage = 'Nessun appartamento trovato'
                 }else {
                     this.apartments = resp.data.results.data
-                    console.log(this.apartments)
+                    this.$router.push({
+                         path: 'research',
+                         query: {
+                             apartmentsTest: this.address
+                         }
+                    });
                 }
             }).finally(() => {
                 this.loading = false;
@@ -42,7 +47,7 @@ export default {
         </div>
         <div class="ms_container d-flex justify-content-center align-items-center gap-3 py-2">
             <h4 class="d-none d-sm-block">Inizia qui la tua ricerca</h4>
-            <!-- <input class="form-width form-control form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()"> -->
+            <input class="form-width form-control form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()">
             <!-- <button class="btn btn-primary px-4" @click="searchByAddress()"><i class="fa-solid fa-magnifying-glass"></i></button> -->
             <router-link :to="{ name: 'research' }" class="nav-link"><button class="btn btn-primary px-4"><i class="fa-solid fa-magnifying-glass"></i></button></router-link>
         </div>
