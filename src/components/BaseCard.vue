@@ -5,8 +5,6 @@ export default {
     },
     data() {
         return {
-            name: this.item.title,
-            location: this.item.address,
             baseUrl: "http://127.0.0.1:8000",
         }
     },
@@ -22,10 +20,10 @@ export default {
         </div>
         <div>
             <div>
-                <p class="my-text-black m-0 ms-1">{{ name }}</p>
+                <p class="my-text-black m-0 ms-1">{{ this.item.title }}</p>
             </div>
             <div>
-                <p class="my-text-grey mb-1 ms-1">{{ location }}</p>
+                <p class="my-text-grey mb-1 ms-1">{{ this.item.address }}</p>
             </div>
             <div class="d-flex justify-content-between">
                 <h6 class="my-text-black ms-1 mb-1">Starting from</h6>
