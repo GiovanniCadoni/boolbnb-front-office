@@ -52,6 +52,9 @@ export default {
             if (this.address !== '') {
                 paramsToSend.address = this.address
             }
+            if(this.kmRange){
+                paramsToSend.range = this.kmRange
+            }
             axios.get(`${this.baseUrl}/api/apartments`, {
                 params: paramsToSend
             }).then((resp) => {
