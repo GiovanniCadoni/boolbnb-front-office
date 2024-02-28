@@ -26,8 +26,8 @@ export default {
 <template>
     <div class="container py-5">
         <h3 class="pb-4 fw-bold">Highly-rated hotels</h3>
-        <div class="row row-cols-6 gap-4">
-            <div class="col" v-for="(sponsored) in sponsoreds">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+            <div class="col d-flex justify-content-center g-5" v-for="(sponsored) in sponsoreds">
                 <HighlyRatedCard :sponsored="sponsored" />
             </div>
         </div>
