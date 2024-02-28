@@ -14,14 +14,14 @@ export default {
             lastPage: 1,
             total: 0,
             selectedServices: [],
-            service_filter : []
+            service_filter: []
         };
     },
     components: {
         BaseCard
     },
     created() {
-        this.searchByAddress
+        // this.searchByAddress
         this.getServices()
         const apartmentsTest = this.$route.query.apartmentsTest;
         this.searchFromOtherPage(apartmentsTest);
@@ -37,80 +37,64 @@ export default {
                 this.services = resp.data.results
             })
         },
-        searchByAddress(pageNum) {
-            this.loading = true;
-            const paramsToSend = {
-                page: pageNum
-            }
-            if (this.address !== '') {
-                paramsToSend.address = this.address
-                axios.get(`${this.baseUrl}/api/apartments`, {
-                    params: paramsToSend
-                }).then((resp) => {
-                    if (resp.data.success == false) {
-                        this.errorMessage = resp.data.message
-                    } else if (resp.data.success == true && resp.data.results.data.length == 0) {
-                        this.errorMessage = 'Nessun appartamento trovato'
-                    } else {
-                        this.apartments = resp.data.results.data
-                    }
-                }).finally(() => {
-                    this.loading = false;
-                });
-            } else {
-                this.getApartments()
-            }
-
-
-        },
         searchFromOtherPage(apartmentsAddress) {
             this.address = apartmentsAddress
-            this.searchByAddress()
+            this.searchByFilter()
         },
-        searchByFilter(pageNum){
+        searchByFilter(pageNum) {
+            this.loading = true;
             const paramsToSend = {
                 page: pageNum
             }
             if (this.selectedServices.length > 0) {
                 paramsToSend.services = this.selectedServices
             }
+            if (this.address !== '') {
+                paramsToSend.address = this.address
+            }
             axios.get(`${this.baseUrl}/api/apartments`, {
-                params : paramsToSend
+                params: paramsToSend
             }).then((resp) => {
                 this.apartments = []
-                this.apartments = resp.data.results.data
-                console.log(this.apartments);
-            })
+                if (resp.data.success == false) {
+                    this.errorMessage = resp.data.message
+                } else if (resp.data.success == true && resp.data.results.data.length == 0) {
+                    this.errorMessage = 'Nessun appartamento trovato'
+                } else {
+                    this.apartments = resp.data.results.data
+                }
+            }).finally(() => {
+                this.loading = false;
+            });
 
         },
-        checkboxFilter(event){
-            if(event.target.checked){
+        checkboxFilter(event) {
+            if (event.target.checked) {
                 this.selectedServices.push(event.target.id)
-            }else {
+            } else {
                 const id = event.target.id
-                for(let data of this.selectedServices) {
-                    if(data == id){
+                for (let data of this.selectedServices) {
+                    if (data == id) {
                         const index = this.selectedServices.indexOf(data)
                         this.selectedServices.splice(index, 1)
                     }
                 }
             }
         },
-        getFilterData(){
+        getFilterData() {
             const pars = this.selectedServices.map((str) => {
                 return parseInt(str)
             })
 
             const data = {
-                services : pars
+                services: pars
             }
-            axios.post(`${this.baseUrl}/api/apartments/service_filter`, data,{
+            axios.post(`${this.baseUrl}/api/apartments/service_filter`, data, {
                 headers: {
-                    "Access-Control-Allow-Origin" : "*"
+                    "Access-Control-Allow-Origin": "*"
                 }
             }).then((resp) => {
                 this.service_filter = resp.data
-                console.log(this.service_filter);
                 this.searchByFilter(1)
             })
         }
@@ -132,7 +116,8 @@ export default {
                         <label for="rangeSlider" class="sliderValue">Raggio km: {{ kmRange }}</label>
                         <h4>Servizi:</h4>
                         <div v-for="(service, index) in services" class="form-check mb-3">
-                            <input type="checkbox" :name="service.id" :value="service.id"  :id="`${service.id}`" v-model="selectedServices" @click="checkboxFilter($event)" :checked="service.checked">
+                            <input type="checkbox" :name="service.id" :value="service.id" :id="`${service.id}`"
+                                v-model="selectedServices" @click="checkboxFilter($event)" :checked="service.checked">
                             <label class="ms-3 " :for="`${service.id}`">{{ service.name }}</label>
                         </div>
 
