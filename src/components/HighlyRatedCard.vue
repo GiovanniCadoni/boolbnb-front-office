@@ -44,7 +44,7 @@ export default {
 }
 
 img {
-    max-width: 200px;
+    width: 300px;
     transition: transform 0.5s ease;
 }
 
