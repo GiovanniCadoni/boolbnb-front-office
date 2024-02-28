@@ -13,9 +13,9 @@ export default {
 </script>
 
 <template>
-    <div class="d-flex justify-content-start rounded-4 p-3 my-card w-75">
+    <div class="d-flex justify-content-start rounded-4 p-3 my-card w-100">
         <div class="">
-            <img v-if="this.apartment.images != '' " class="rounded-4 like" :src="`${baseUrl}/storage/${this.apartment.images[0].image_path}`" alt="">
+            <img v-if="this.apartment.images != '' " class="rounded-4" :src="`${baseUrl}/storage/${this.apartment.images[0].image_path}`" alt="">
             <img v-else class="rounded-4 like" src="../assets/img/missing-image.png" alt="">
         </div>
         <div class="d-flex justify-content-between w-100">

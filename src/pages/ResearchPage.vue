@@ -75,7 +75,7 @@ export default {
             </div>
             <div class="col-10 px-2 py-4">
                 <div class="container">
-                    <div class="row gy-4 justify-content-center flex-wrap">
+                    <div class="row gy-4 justify-content-start flex-wrap">
                         <div class="col-9" v-for="(apartment) in apartments">
                             <PreviewCard :apartment="apartment" />
                         </div>
