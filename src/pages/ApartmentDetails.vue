@@ -159,17 +159,17 @@ export default {
                     cursor: pointer;
                     img{
                         width: calc(315px * 1);
-                        height: calc(350px * 1);
+                        height: calc(230px * 1);
                         border-radius: 25px;
-                        margin-top: 5%;
-                        filter: blur(2px);
+                        margin-top: 2.5%;
+                        filter: blur(3px);
                     }
                 }
 
                 .swiper-slide.swiper-slide-active{
                     img{
                         width: calc(315px * 1.1);
-                        height: calc(350px * 1.1);
+                        height: calc(230px * 1.1);
                         border-radius: 25px;
                         margin-top: 0;
                         filter: blur(0);
