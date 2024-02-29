@@ -14,10 +14,10 @@ export default {
 </script>
 
 <template>
-    <div class="d-flex flex-column justify-content-between rounded-4 g-3 my-card">
+    <div class="d-flex flex-column justify-content-between p-2 h-100 rounded-4 g-3 my-card">
         <div class="mb-2">
-            <img v-if="this.sponsored.images != '' " class="rounded-4 like" :src="`${baseUrl}/storage/${this.sponsored.images[0].image_path}`" alt="">
-            <p v-else>Nessuna Immagine Disponibile</p>
+            <img v-if="this.sponsored.images != '' " class="rounded-4" :src="`${baseUrl}/storage/${this.sponsored.images[0].image_path}`" alt="">
+            <img v-else class="rounded-4" src="../assets/img/missing-image.png" alt="">
             <span></span>
         </div>
         <div>
@@ -43,6 +43,11 @@ export default {
     width: fit-content;
 }
 
+img {
+    width: 300px;
+    transition: transform 0.5s ease;
+}
+
 .my-text-black {
     color: $text-black;
 }
@@ -50,5 +55,9 @@ export default {
 .my-text-grey {
     color: $text-grey;
     font-size: 0.9rem;
+}
+
+.my-card:hover img {
+    transform: scale(.95);
 }
 </style>

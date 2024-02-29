@@ -72,7 +72,7 @@ export default {
 
 <template>
     <div class="container py-5">
-        <h3 class="mb-3">Top Rated Locations</h3>
+        <h3 class="pb-4 fw-bold">Top Rated Locations</h3>
         <div class="row row-cols-4">
             <div class="col">
                 <div class="big-image">
@@ -151,6 +151,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../styles/partials/variables" as *;
 // .location-row {
 //     overflow-y: auto;
 // }
@@ -172,6 +173,9 @@ export default {
 }
 
 [class*="-image"]{
+    border: 4px solid transparent;
+    transition: transform 0.5s ease;
+
     img{
         height: 100%;
         width: 300px;
@@ -191,8 +195,11 @@ export default {
 
 [class*="-image"]:hover{
     
-    border: 5px solid #0d6efd;
+    border-color: $secondary;
+    display: absolute;
     border-radius: calc(25px + 5px);
+    transform: scale(1.02);
+
     span{
         color: #f31c19;
     }
