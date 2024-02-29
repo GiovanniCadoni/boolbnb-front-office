@@ -97,7 +97,7 @@ export default {
                         <input type="text" class="form-control" id="lastname" v-model="lastname" />
                     </div>
                     <div class="mb-3">
-                        <label for="message" class="form-label">Il tuo Messaggio</label>
+                        <label for="message" class="form-label">Qual è il tuo dubbio?</label>
                         <textarea class="form-control" id="message" rows="3" v-model="message"></textarea>
                     </div>
                     <button class="btn btn-success" :disabled="loading">
