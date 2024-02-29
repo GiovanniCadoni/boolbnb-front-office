@@ -10,6 +10,9 @@ export default {
             services: [],
             address: '',
             kmRange: 20,
+            roomNum: 0,
+            bedsNum: 0,
+            bathroomNum: 0,
             curPage: 1,
             lastPage: 1,
             total: 0,
@@ -21,7 +24,6 @@ export default {
         BaseCard
     },
     created() {
-        // this.searchByAddress
         this.getServices()
         const apartmentsTest = this.$route.query.apartmentsTest;
         this.searchFromOtherPage(apartmentsTest);
@@ -43,6 +45,9 @@ export default {
         },
         searchByFilter(pageNum) {
             this.loading = true;
+            const roomNumInt = parseInt(this.roomNum)
+            const bedsNumInt = parseInt(this.bedsNum)
+            const bathroomNumInt = parseInt(this.bathroomNum)
             const paramsToSend = {
                 page: pageNum
             }
@@ -54,6 +59,15 @@ export default {
             }
             if(this.kmRange){
                 paramsToSend.range = this.kmRange
+            }
+            if(roomNumInt > 0) {
+                paramsToSend.rooms_number = roomNumInt
+            }
+            if(bedsNumInt > 0){
+                paramsToSend.beds_number = bedsNumInt
+            }
+            if(bathroomNumInt > 0) {
+                paramsToSend.bathrooms_number = bathroomNumInt
             }
             axios.get(`${this.baseUrl}/api/apartments`, {
                 params: paramsToSend
@@ -111,20 +125,39 @@ export default {
             <div class="col-2 px-3 py-4">
                 <div class="container">
                     <div class="row flex-column">
-                        <h4>Indirizzo:</h4>
-                        <input class="form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..."
-                            v-model.trim="address">
-                        <input type="range" id="rangeSlider" class="form-range" v-model="kmRange" min="0" max="50"
-                            step="0.5">
-                        <label for="rangeSlider" class="sliderValue">Raggio km: {{ kmRange }}</label>
+                        <div class="mt-2">
+                            <h4>Indirizzo:</h4>
+                            <input class="form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address">
+                        </div>
+                        
+                        <div class="mt-2">
+                            <input type="range" id="rangeSlider" class="form-range" v-model="kmRange" min="0" max="50">
+                            <label for="rangeSlider" class="sliderValue">Raggio km: {{ kmRange }}</label>
+                        </div>
+                        
                         <h4>Servizi:</h4>
                         <div v-for="(service, index) in services" class="form-check mb-3">
                             <input type="checkbox" :name="service.id" :value="service.id" :id="`${service.id}`"
                                 v-model="selectedServices" @click="checkboxFilter($event)" :checked="service.checked">
                             <label class="ms-3 " :for="`${service.id}`">{{ service.name }}</label>
                         </div>
+                        <div class="mt-2">
+                            <label class="sliderValue" for="rooms_number">Numero di stanze : {{ roomNum }}</label><br />
+                            <input type="range" class="form-range" id="rooms_number" name="rooms_number" min="0" max="10" list="markers" v-model="roomNum" />
+                        </div>
+                        
+                        <div class="mt-2">
+                            <label class="sliderValue" for="beds_number">Numero di letti : {{ bedsNum }}</label><br />
+                            <input type="range" class="form-range" id="beds_number" name="beds_number" min="0" max="10" list="markers" v-model="bedsNum" />
+                        </div>
+                        
+                        <div class="mt-2">
+                            <label class="sliderValue" for="bathrooms_number">Numero di bagni : {{ bathroomNum }}</label><br />
+                            <input type="range" class="form-range" id="bathrooms_number" name="bathrooms_number" min="0" max="10" list="markers" v-model="bathroomNum" />
+                        </div>
+                        
 
-                        <button class="btn btn-primary" @click="getFilterData()">Filtra</button>
+                        <button class="btn btn-primary mt-3" @click="getFilterData()">Filtra</button>
                     </div>
                 </div>
 
