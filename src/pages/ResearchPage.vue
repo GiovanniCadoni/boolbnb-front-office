@@ -167,8 +167,8 @@ export default {
             </div>
             <div class="col-10 ms_border px-2 py-4">
                 <div class="container ">
-                    <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-lg-3 flex-wrap">
-                        <div class="col" v-for="(apartment) in apartments">
+                    <div class="row gy-4 justify-content-start flex-wrap">
+                        <div class="col-9" v-for="(apartment) in apartments">
                             <PreviewCard :apartment="apartment" />
                         </div>
                     </div>
