@@ -125,7 +125,17 @@ export default {
         <div v-if="!loading">
             <Map :latitude="lat" :longitude="lon" />
         </div>
-        <!-- Services -->
+        
+        <h3 class="mt-4">I nostri Servizi</h3>
+        <span v-for="(service, serviceIndex) in curApartment.services">
+            <span v-if="serviceIndex === curApartment.services.length - 1">
+                {{service.name}}.
+            </span>
+            <span v-else>
+                {{service.name}}, 
+            </span>
+        </span>
+
     </div>
 </template>
 
