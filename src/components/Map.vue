@@ -35,6 +35,9 @@ export default {
 
         function addMarker(map) {
 
+            console.log(props.longitude);
+            console.log(props.latitude);
+
             const tt = window.tt;
             let location = [props.longitude, props.latitude];
             let popupOffset = 25;

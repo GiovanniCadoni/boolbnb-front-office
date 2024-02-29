@@ -35,9 +35,9 @@ export default {
         <h2 class="fw-bold">{{ curApartment.title }}</h2>
         <p class="text-secondary fst-italic">A partire da <span class="text-success">{{ curApartment.price }}$</span> a notte</p>
         <!-- Images -->
-        <Map :latitude="lat" :longitude="lon" />
-        <!-- <Map :apartment="curApartment" /> -->
-        <!-- <Map /> -->
+        <div v-if="!loading">
+            <Map :latitude="lat" :longitude="lon" />
+        </div>
         <!-- Services -->
     </div>
 </template>
