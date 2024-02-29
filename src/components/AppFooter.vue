@@ -22,10 +22,10 @@ export default {
                 <div class="col-6 d-flex flex-row justify-content-end align-items-center">
                     <ul>
                         <li class="fw-bold"><a href="">Support</a></li>
-                        <li><a href="">How it works</a></li>
-                        <li><a href="">About us</a></li>
-                        <li><a href="">TomTom</a></li>
-                        <li><a href="">BrainTree</a></li>
+                        <li><a href="http://127.0.0.1:8000/login">How it works</a></li>
+                        <li><a href="http://localhost:5174/about">About us</a></li>
+                        <li><a href="https://developer.tomtom.com/">TomTom</a></li>
+                        <li><a href="https://www.braintreepayments.com/it">BrainTree</a></li>
                     </ul>
                 </div>
             </div>

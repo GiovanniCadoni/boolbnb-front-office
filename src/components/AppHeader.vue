@@ -31,8 +31,8 @@ export default {
                             </ul>
                         </div>
                         <div class="col nav-item d-flex flex-row justify-content-end px-0">
-                            <a class="ms_btn-login btn btn-danger" href="">Accedi</a>
-                            <a class="ms_btn-sign btn btn-danger" href="">Registrati</a>
+                            <a class="ms_btn-login btn btn-danger" href="http://127.0.0.1:8000/login">Accedi</a>
+                            <a class="ms_btn-sign btn btn-danger" href="http://127.0.0.1:8000/register">Registrati</a>
                         </div>
                     </div>
                 </div>
