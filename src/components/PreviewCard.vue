@@ -28,8 +28,9 @@ export default {
 
         <div class="d-flex flex-column flex-lg-row justify-content-between w-100">
             <div class="ps-3 pt-2 pt-md-1">
-                <div>
+                <div class="d-flex gap-2 align-items-center">
                     <h4 class="my-text-red fw-bold m-0">{{ this.apartment.title }}</h4>
+                    <span v-if="this.apartment.sponsors"> <i class="fa-solid fa-crown" style="color: #FFD43B;"></i> </span>
                 </div>
                 <div class="py-1">
                     <p class="my-text-grey mb-1">{{ this.apartment.address }}</p>

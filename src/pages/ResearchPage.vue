@@ -210,15 +210,16 @@ export default {
             <div class="col-9 ms_border px-2 py-4">
                 <div class="container ">
                     <div class="row gy-4 justify-content-start flex-wrap">
-                        <div class="col-9" v-for="(sponsored) in sponsoredApartment">
+                        <div class="col-12" v-for="(sponsored) in sponsoredApartment">
                             <PreviewCard :apartment="sponsored" />
                         </div>
-                        <div class="col-9" v-for="(apartment) in apartments">
+                        <div class="col-12" v-for="(apartment) in apartments">
                             <PreviewCard :apartment="apartment" />
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -232,4 +233,6 @@ export default {
 
 .ms_border {
     border-left: 2px solid rgb(201, 201, 201);
-}</style>
+}
+</style>
+
