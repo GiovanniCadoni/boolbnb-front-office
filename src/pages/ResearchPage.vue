@@ -33,6 +33,7 @@ export default {
     methods: {
         getApartments() {
             axios.get(`${this.baseUrl}/api/apartments`).then((resp) => {
+                
                 this.apartments = resp.data.results.data
             })
         },
@@ -59,8 +60,8 @@ export default {
             if (this.address !== '') {
                 paramsToSend.address = this.address
             }
-            if(this.kmRange){
-                paramsToSend.range = this.kmRange
+            if(this.kmRange !== 20){
+                paramsToSend.kmRange = this.kmRange
             }
             if(roomNumInt > 0) {
                 paramsToSend.rooms_number = roomNumInt
@@ -74,6 +75,7 @@ export default {
             axios.get(`${this.baseUrl}/api/apartments`, {
                 params: paramsToSend
             }).then((resp) => {
+                console.log(resp);
                 this.apartments = []
                 if (resp.data.success == false) {
                     this.errorMessage = resp.data.message

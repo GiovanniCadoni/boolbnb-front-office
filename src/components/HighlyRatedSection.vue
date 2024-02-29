@@ -10,12 +10,10 @@ export default {
         };
     },
     created() {
-        axios.get(`http://127.0.0.1:8000/api/apartments`, {
-            params: {
-                address: "Roma"
-            }
-        }).then((resp) => {
-            this.sponsoreds = resp.data.results.data
+        axios.get(`${this.baseUrl}/api/apartments/sponsored`).then((resp) => {
+            console.log(resp);
+            this.sponsoreds = resp.data.results
+            console.log(this.sponsoreds);
         })
     },
     components: { HighlyRatedCard }
