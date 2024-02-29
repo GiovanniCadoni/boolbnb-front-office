@@ -78,6 +78,7 @@ export default {
                 } else if (resp.data.success == true && resp.data.results.data.length == 0) {
                     this.errorMessage = 'Nessun appartamento trovato'
                 } else {
+                    console.log(resp);
                     this.apartments = resp.data.results.data
                 }
             }).finally(() => {
@@ -111,7 +112,7 @@ export default {
             axios.get(`${this.baseUrl}/api/apartments/sponsored`, {
                 params: paramsToSend
             }).then((resp) => {
-                this.apartments = []
+                this.sponsoredApartment = []
                 if (resp.data.success == false) {
                     this.errorMessage = resp.data.message
                 } else if (resp.data.success == true && resp.data.results.length == 0) {
