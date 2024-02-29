@@ -16,7 +16,6 @@ export default {
             }
         }).then((resp) => {
             this.sponsoreds = resp.data.results.data
-            console.log(this.sponsoreds)
         })
     },
     components: { HighlyRatedCard }

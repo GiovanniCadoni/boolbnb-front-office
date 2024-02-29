@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 import Map from '../components/Map.vue';
+import { store } from "../store";
 
 export default {
     data() {
@@ -10,12 +11,14 @@ export default {
             loading: false,
             lat: '',
             lon: '',
+            store,
         };
     },
     name: 'App',
     components: { Map },
 
     created() {
+
         this.loading = true;
         axios.get(`${this.baseUrl}/api/apartment/research/${this.$route.params.slug}`)
             .then((resp) => {
@@ -25,7 +28,9 @@ export default {
             })
             .finally(() => {
                 this.loading = false;
-            });
+                this.store.contact_apartment_id = this.curApartment.id;
+            }); 
+            
     },
 }
 </script>
@@ -41,8 +46,8 @@ export default {
         <!-- Services -->
 
         <!-- contact button -->
-        <router-link :to="{name: 'contact'}" @click="this.store.contact_apartment_id = this.apartment.id" >
-            <button type="button" class="button-red rounded-5 me-4 mt-3">Contattaci</button>
+        <router-link :to="{name: 'contact'}">
+            <button type="button" class="button-red rounded-5 me-4 mt-3" @click="store.contact_apartment_id = curApartment.id">Contattaci</button>
         </router-link>
     </div>
 </template>
