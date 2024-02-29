@@ -21,8 +21,8 @@ export default {
 </script>
 
 <template>
-    <div class="container py-5">
-        <h3 class="pb-4 fw-bold">Highly-rated hotels</h3>
+    <div class="container my-space">
+        <h3 class="fw-bold">La nostra selezione</h3>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
             <div class="col d-flex justify-content-center g-5" v-for="(sponsored) in sponsoreds">
                 <HighlyRatedCard :sponsored="sponsored" />
@@ -33,4 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 @use "../styles/partials/variables" as *;
+.my-space{
+    margin-bottom: 80px;
+}
 </style>

@@ -71,8 +71,8 @@ export default {
 </script>
 
 <template>
-    <div class="container py-5">
-        <h3 class="pb-4 fw-bold">Top Rated Locations</h3>
+    <div class="container my-space">
+        <h3 class="pb-5 fw-bold">Città più visitate</h3>
         <div class="row row-cols-4">
             <div class="col">
                 <div class="big-image">
@@ -155,6 +155,10 @@ export default {
 // .location-row {
 //     overflow-y: auto;
 // }
+.my-space{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
 .ms_gap{
     gap: 2.5rem;
 }
