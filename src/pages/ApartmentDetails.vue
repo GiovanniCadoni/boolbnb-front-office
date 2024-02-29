@@ -57,12 +57,13 @@ export default {
         <p class="text-secondary fst-italic">A partire da <span class="text-success">{{ curApartment.price }}$</span> a notte</p>
 
         <div class="swiper-container">
-            <h3 class="mt-4">Foto appartamento ({{ curApartment.images.length }}) </h3>
+            <!-- <h3 class="mt-4">Foto appartamento ({{ curApartment.images.length }}) </h3> -->
             <swiper
                 :modules="modules"
                 :slides-per-view="3"
                 :space-between="100"
                 :loop="true"
+                :centered-slides="true"
                 navigation
                 :pagination="{ clickable: true }"
                 :mousewheel="{ enabled: true }"
@@ -72,13 +73,51 @@ export default {
             >
         
                 <swiper-slide v-for="image in curApartment.images">
-                    <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+                    <a data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false" :aria-controls="`image-${image.id}`">
+                        <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+                    </a>
                 </swiper-slide>
-        
             </swiper>
 
         </div>
 
+        <div v-for="image in curApartment.images" :id="`image-${image.id}`" class="collapse">
+            <div>
+                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false" :aria-controls="`image-${image.id}`"><i class="fa-solid fa-circle-xmark"></i></a>
+                <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+            </div>
+        </div>
+
+        <!-- <a v-for="service in curApartment.services"
+            class="btn btn-primary"
+            data-bs-toggle="collapse"
+            :data-bs-target="`#${service.name}-service`"
+            aria-expanded="false"
+            :aria-controls="`${service.name}-service`"
+        >
+        {{ service.name }}</a>
+
+        <div v-for="service in curApartment.services" :id="`${service.name}-service`" class="collapse">
+            <div>
+                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#${service.name}-service`" aria-expanded="false" :aria-controls="`${service.name}-service`"><i class="fa-solid fa-circle-xmark"></i></a>
+                {{ service.name }}
+            </div>
+        </div> -->
+
+        <!-- <div class="collapse" id="user-info-popup">
+                <div id="popup-block">
+                    <a class="dropdown-item" data-bs-toggle="collapse" data-bs-target="#user-info-popup" aria-expanded="false" aria-controls="user-info-popup"><i class="fa-solid fa-circle-xmark"></i></a>
+    
+                <div>
+                    <h5>Nome:</h5>
+                    <span>Ciao</span>
+                </div>
+                <div>
+                    <h5>E-mail:</h5>
+                    <span>Dio Porco</span>
+                </div>
+                </div>
+            </div> -->
         
 
         <h3 class="mt-4">Dove trovarci</h3>
@@ -99,45 +138,80 @@ export default {
         .swiper{
             display: flex;
             justify-content: center;
+            align-items: center;
             // width: 1145px;
             width: calc((315px * 3) + (100px * 2));
 
             .swiper-wrapper{
             width: 100%;
 
-                .swiper-slide:active{
-                    filter: sepia(1);
+                .swiper-slide{
+                    cursor: pointer;
+                    img{
+                        width: calc(315px * 1);
+                        height: calc(350px * 1);
+                        border-radius: 25px;
+                        margin-top: 5%;
+                        filter: blur(2px);
+                    }
+                }
+
+                .swiper-slide.swiper-slide-active{
+                    img{
+                        width: calc(315px * 1.1);
+                        height: calc(350px * 1.1);
+                        border-radius: 25px;
+                        margin-top: 0;
+                        filter: blur(0);
+                    }
                 }
             }
         }
 
 
-        img{
-            width: 315px;
-            height: 350px;
-            border-radius: 25px;
-        }
+        
 
         
     }
 
-    #popup-block{
-        background-color: white;
-        box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.5);
-        padding: 0 1rem;
-        width: 20rem;
-        height: 20rem;
-        z-index: 9999;
-        position: absolute;
-        top: 40vh;
-        right: 30vw;
-        
-        i{
-            position: relative;
-            top: 0.5rem;
-            left: 17rem;
-            color: red;
-            cursor: pointer;
+    [id*="image-"]{
+    background-color: rgb(130, 130, 130, 0.3);
+    width: 100vw;
+    height: calc(100vh + 6rem);
+    z-index: 9998;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    
+        div{
+            // background-color: white;
+            // box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.5);
+            padding: 0 1rem;
+            // width: 20rem;
+            // height: 20rem;
+            z-index: 9999;
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
+
+            img{
+                height: 700px;
+                width: 630px;
+                border-radius: 25px;
+            }
+            
+            i{
+                background-color: white;
+                border-radius: 100%;
+                font-size: 30px;
+                position: relative;
+                top: 1.5rem;
+                left: 38rem;
+                color: red;
+                cursor: pointer;
+            }
         }
-    }
+}
 </style>
