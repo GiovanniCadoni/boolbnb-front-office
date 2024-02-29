@@ -1,4 +1,5 @@
 <script>
+import { store } from "../store";
 
 export default {
     props: {
@@ -7,6 +8,7 @@ export default {
     data() {
         return {
             baseUrl: "http://127.0.0.1:8000",
+            store,
         };
     },
     methods:{
@@ -42,7 +44,7 @@ export default {
             <div class="d-flex align-items-end">
                 <div>
                     <h4 class="my-text-black"> {{this.apartment.price}} per notte</h4>
-                    <router-link :to="{name: 'apartment-details', params:{slug: this.apartment.slug}}">
+                    <router-link :to="{name: 'apartment-details', params:{slug: this.apartment.slug}}" @click="this.store.contact_apartment_id = this.apartment.id" >
                         <button type="button" class="button-red rounded-5 me-4 mt-3">Scopri di più</button>
                     </router-link>
                 </div>

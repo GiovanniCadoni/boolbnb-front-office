@@ -39,6 +39,11 @@ export default {
             <Map :latitude="lat" :longitude="lon" />
         </div>
         <!-- Services -->
+
+        <!-- contact button -->
+        <router-link :to="{name: 'contact'}" @click="this.store.contact_apartment_id = this.apartment.id" >
+            <button type="button" class="button-red rounded-5 me-4 mt-3">Contattaci</button>
+        </router-link>
     </div>
 </template>
 
