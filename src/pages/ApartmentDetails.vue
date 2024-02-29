@@ -1,6 +1,13 @@
 <script>
 import axios from 'axios';
 import Map from '../components/Map.vue';
+import { Navigation, Pagination, Mousewheel, A11y, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/mousewheel';
+import 'swiper/css/autoplay';
 import { store } from "../store";
 
 export default {
@@ -15,7 +22,21 @@ export default {
         };
     },
     name: 'App',
-    components: { Map },
+    components: { Map, Swiper, SwiperSlide },
+
+    setup() {
+        const onSwiper = (swiper) => {
+        //   console.log(swiper);
+        };
+        const onSlideChange = () => {
+        //   console.log('slide change');
+        };
+        return {
+          onSwiper,
+          onSlideChange,
+          modules: [Navigation, Pagination, Mousewheel, A11y, Autoplay],
+        };
+    },
 
     created() {
 
@@ -39,11 +60,87 @@ export default {
     <div class="container py-5">
         <h2 class="fw-bold">{{ curApartment.title }}</h2>
         <p class="text-secondary fst-italic">A partire da <span class="text-success">{{ curApartment.price }}$</span> a notte</p>
-        <!-- Images -->
+
+        <div class="swiper-container">
+            <!-- <h3 class="mt-4">Foto appartamento ({{ curApartment.images.length }}) </h3> -->
+            <swiper
+                :modules="modules"
+                :slides-per-view="3"
+                :space-between="100"
+                :loop="true"
+                :centered-slides="true"
+                navigation
+                :pagination="{ clickable: true }"
+                :mousewheel="{ enabled: true }"
+                :autoplay="{delay: 3000}"
+                @swiper="onSwiper"
+                @slideChange="onSlideChange"
+            >
+        
+                <swiper-slide v-for="image in curApartment.images">
+                    <a data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false" :aria-controls="`image-${image.id}`">
+                        <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+                    </a>
+                </swiper-slide>
+            </swiper>
+
+        </div>
+
+        <div v-for="image in curApartment.images" :id="`image-${image.id}`" class="collapse">
+            <div>
+                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false" :aria-controls="`image-${image.id}`"><i class="fa-solid fa-circle-xmark"></i></a>
+                <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+            </div>
+        </div>
+
+        <!-- <a v-for="service in curApartment.services"
+            class="btn btn-primary"
+            data-bs-toggle="collapse"
+            :data-bs-target="`#${service.name}-service`"
+            aria-expanded="false"
+            :aria-controls="`${service.name}-service`"
+        >
+        {{ service.name }}</a>
+
+        <div v-for="service in curApartment.services" :id="`${service.name}-service`" class="collapse">
+            <div>
+                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#${service.name}-service`" aria-expanded="false" :aria-controls="`${service.name}-service`"><i class="fa-solid fa-circle-xmark"></i></a>
+                {{ service.name }}
+            </div>
+        </div> -->
+
+        <!-- <div class="collapse" id="user-info-popup">
+                <div id="popup-block">
+                    <a class="dropdown-item" data-bs-toggle="collapse" data-bs-target="#user-info-popup" aria-expanded="false" aria-controls="user-info-popup"><i class="fa-solid fa-circle-xmark"></i></a>
+    
+                <div>
+                    <h5>Nome:</h5>
+                    <span>Ciao</span>
+                </div>
+                <div>
+                    <h5>E-mail:</h5>
+                    <span>Dio Porco</span>
+                </div>
+                </div>
+            </div> -->
+        
+
+        <h3 class="mt-4">Dove trovarci</h3>
+
         <div v-if="!loading">
             <Map :latitude="lat" :longitude="lon" />
         </div>
-        <!-- Services -->
+        
+        <h3 class="mt-4">I nostri Servizi</h3>
+        <span v-for="(service, serviceIndex) in curApartment.services">
+            <span v-if="serviceIndex === curApartment.services.length - 1">
+                {{service.name}}.
+            </span>
+            <span v-else>
+                {{service.name}}, 
+            </span>
+        </span>
+
 
         <!-- contact button -->
         <router-link :to="{name: 'contact'}">
@@ -53,4 +150,88 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../styles/partials/variables" as *;
+    .swiper-container{
+        width: 100%;
+        margin: 2.5rem auto;
+
+        .swiper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // width: 1145px;
+            width: calc((315px * 3) + (100px * 2));
+
+            .swiper-wrapper{
+            width: 100%;
+
+                .swiper-slide{
+                    cursor: pointer;
+                    img{
+                        width: calc(315px * 1);
+                        height: calc(230px * 1);
+                        border-radius: 25px;
+                        margin-top: 2.5%;
+                        filter: blur(3px);
+                    }
+                }
+
+                .swiper-slide.swiper-slide-active{
+                    img{
+                        width: calc(315px * 1.1);
+                        height: calc(230px * 1.1);
+                        border-radius: 25px;
+                        margin-top: 0;
+                        filter: blur(0);
+                    }
+                }
+            }
+        }
+
+
+        
+
+        
+    }
+
+    [id*="image-"]{
+    background-color: rgb(130, 130, 130, 0.3);
+    width: 100vw;
+    height: calc(100vh + 6rem);
+    z-index: 9998;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    
+        div{
+            // background-color: white;
+            // box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.5);
+            padding: 0 1rem;
+            // width: 20rem;
+            // height: 20rem;
+            z-index: 9999;
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
+
+            img{
+                height: 700px;
+                width: 630px;
+                border-radius: 25px;
+            }
+            
+            i{
+                background-color: white;
+                border-radius: 100%;
+                font-size: 30px;
+                position: relative;
+                top: 1.5rem;
+                left: 38rem;
+                color: red;
+                cursor: pointer;
+            }
+        }
+}
 </style>
