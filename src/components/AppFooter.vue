@@ -23,7 +23,9 @@ export default {
                     <ul>
                         <li class="fw-bold"><a href="">Support</a></li>
                         <li><a href="http://127.0.0.1:8000/login">How it works</a></li>
-                        <li><a href="http://localhost:5174/about">About us</a></li>
+                        <li>
+                            <router-link :to="{ name: 'about-us' }" class="nav-link">About Us</router-link>
+                        </li>
                         <li><a href="https://developer.tomtom.com/">TomTom</a></li>
                         <li><a href="https://www.braintreepayments.com/it">BrainTree</a></li>
                     </ul>

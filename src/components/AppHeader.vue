@@ -13,10 +13,10 @@ export default {
         <div class="container">
             <div class="row w-100 align-items-center">
                 <div class="col-2">
-                    <a class="ms_red d-flex align-items-center navbar-brand fw-bold fs-4" href="#">
+                    <div class="ms_red d-flex align-items-center fw-bold fs-3">
                         <img src="../assets/img/image_5.jpg" alt="">
                         BoolBnB
-                    </a>
+                    </div>
                 </div>
                 <div class="col-10">
                     <div class="row">
@@ -31,8 +31,7 @@ export default {
                             </ul>
                         </div>
                         <div class="col nav-item d-flex flex-row justify-content-end px-0">
-                            <a class="ms_btn-login btn btn-danger" href="http://127.0.0.1:8000/login">Accedi</a>
-                            <a class="ms_btn-sign btn btn-danger" href="http://127.0.0.1:8000/register">Registrati</a>
+                            <a class="ms_btn-login btn btn-danger py-2" href="http://127.0.0.1:8000/login">Inserisci il tuo apartamento</a>
                         </div>
                     </div>
                 </div>
