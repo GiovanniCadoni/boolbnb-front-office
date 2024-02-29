@@ -28,7 +28,6 @@ export default {
     },
     created() {
         this.getServices()
-        this.sponsoredFilter()
         this.searchByFilter(1)
         const apartmentsTest = this.$route.query.apartmentsTest;
         this.searchFromOtherPage(apartmentsTest);
@@ -42,6 +41,7 @@ export default {
         searchFromOtherPage(apartmentsAddress) {
             this.address = apartmentsAddress
             this.searchByFilter()
+            this.sponsoredFilter()
         },
         searchByFilter(pageNum) {
             this.loading = true;
