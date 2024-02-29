@@ -9,6 +9,11 @@ export default {
             baseUrl: "http://127.0.0.1:8000",
         };
     },
+    methods:{
+        // getDetails(currentSlug){
+        //     return `research/${currentSlug}`
+        // }
+    }
 }
 </script>
 
@@ -36,8 +41,10 @@ export default {
             </div>
             <div class="d-flex align-items-end">
                 <div>
-                    <h4 class="my-text-black">${{this.apartment.price}} per notte</h4>
-                    <button type="button" class="button-red rounded-5 me-4 mt-3">Scopri di più</button>
+                    <h4 class="my-text-black"> {{this.apartment.price}} per notte</h4>
+                    <router-link :to="{name: 'apartment-details', params:{slug: this.apartment.slug}}">
+                        <button type="button" class="button-red rounded-5 me-4 mt-3">Scopri di più</button>
+                    </router-link>
                 </div>
             </div>
         </div>
