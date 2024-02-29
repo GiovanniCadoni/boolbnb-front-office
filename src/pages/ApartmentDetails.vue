@@ -26,15 +26,15 @@ export default {
 
     setup() {
         const onSwiper = (swiper) => {
-        //   console.log(swiper);
+            //   console.log(swiper);
         };
         const onSlideChange = () => {
-        //   console.log('slide change');
+            //   console.log('slide change');
         };
         return {
-          onSwiper,
-          onSlideChange,
-          modules: [Navigation, Pagination, Mousewheel, A11y, Autoplay],
+            onSwiper,
+            onSlideChange,
+            modules: [Navigation, Pagination, Mousewheel, A11y, Autoplay],
         };
     },
 
@@ -50,8 +50,8 @@ export default {
             .finally(() => {
                 this.loading = false;
                 this.store.contact_apartment_id = this.curApartment.id;
-            }); 
-            
+            });
+
     },
 }
 </script>
@@ -59,26 +59,17 @@ export default {
 <template>
     <div class="container py-5">
         <h2 class="fw-bold">{{ curApartment.title }}</h2>
-        <p class="text-secondary fst-italic">A partire da <span class="text-success">{{ curApartment.price }}$</span> a notte</p>
+        <p class="text-secondary fst-italic"><span class="text-success">{{ curApartment.address }}</span></p>
 
         <div class="swiper-container">
             <!-- <h3 class="mt-4">Foto appartamento ({{ curApartment.images.length }}) </h3> -->
-            <swiper
-                :modules="modules"
-                :slides-per-view="3"
-                :space-between="100"
-                :loop="true"
-                :centered-slides="true"
-                navigation
-                :pagination="{ clickable: true }"
-                :mousewheel="{ enabled: true }"
-                :autoplay="{delay: 3000}"
-                @swiper="onSwiper"
-                @slideChange="onSlideChange"
-            >
-        
+            <swiper :modules="modules" :slides-per-view="3" :space-between="100" :loop="true" :centered-slides="true"
+                navigation :pagination="{ clickable: true }" :mousewheel="{ enabled: true }" :autoplay="{ delay: 3000 }"
+                @swiper="onSwiper" @slideChange="onSlideChange">
+
                 <swiper-slide v-for="image in curApartment.images">
-                    <a data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false" :aria-controls="`image-${image.id}`">
+                    <a data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false"
+                        :aria-controls="`image-${image.id}`">
                         <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
                     </a>
                 </swiper-slide>
@@ -88,7 +79,8 @@ export default {
 
         <div v-for="image in curApartment.images" :id="`image-${image.id}`" class="collapse">
             <div>
-                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false" :aria-controls="`image-${image.id}`"><i class="fa-solid fa-circle-xmark"></i></a>
+                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`"
+                    aria-expanded="false" :aria-controls="`image-${image.id}`"><i class="fa-solid fa-circle-xmark"></i></a>
                 <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
             </div>
         </div>
@@ -123,78 +115,106 @@ export default {
                 </div>
                 </div>
             </div> -->
-        
 
-        <h3 class="mt-4">Dove trovarci</h3>
 
-        <div v-if="!loading">
-            <Map :latitude="lat" :longitude="lon" />
+        <div class="row">
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="mt-4">I nostri Servizi</h3>
+                        <div class="row">
+                            <div v-for="(service) in curApartment.services" class="col-6 g-2">
+                                <span class="badge border text-dark">
+                                    <i :class="service.icon"></i> {{ service.name }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="mt-4">Dettagli</h3>
+                        <div class="row">
+                            <div class="icon-grey mb-2">
+                                <span><i class="fa-solid fa-bed"></i> {{ this.curApartment.beds_number }}</span>
+                                <span class="px-2"><i class="fa-solid fa-minus fa-rotate-90 fa-lg"></i></span>
+                                <span><i class="fa-solid fa-bath"></i> {{ this.curApartment.bathrooms_number }}</span>
+                                <span class="px-2"><i class="fa-solid fa-minus fa-rotate-90 fa-lg"></i></span>
+                                <span><i class="fa-solid fa-ruler-combined"></i> {{ this.curApartment.dimension_mq }}
+                                    m²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <h3 class="mt-4">Dove trovarci</h3>
+
+                <div v-if="!loading">
+                    <Map :latitude="lat" :longitude="lon" />
+                </div>
+            </div>
+
         </div>
-        
-        <h3 class="mt-4">I nostri Servizi</h3>
-        <span v-for="(service, serviceIndex) in curApartment.services">
-            <span v-if="serviceIndex === curApartment.services.length - 1">
-                {{service.name}}.
-            </span>
-            <span v-else>
-                {{service.name}}, 
-            </span>
-        </span>
 
 
         <!-- contact button -->
-        <router-link :to="{name: 'contact'}">
-            <button type="button" class="button-red rounded-5 me-4 mt-3" @click="store.contact_apartment_id = curApartment.id">Contattaci</button>
-        </router-link>
+        <div class="py-3">
+            <h4 class="my-text-black"> ${{ this.curApartment.price }} per notte</h4>
+            <router-link :to="{ name: 'contact' }">
+                <button type="button" class="button-red rounded-5 me-4 mt-3"
+                    @click="store.contact_apartment_id = curApartment.id">Contattaci</button>
+            </router-link>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @use "../styles/partials/variables" as *;
-    .swiper-container{
-        width: 100%;
-        margin: 2.5rem auto;
 
-        .swiper{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            // width: 1145px;
-            width: calc((315px * 3) + (100px * 2));
+.swiper-container {
+    width: 100%;
+    margin: 2.5rem auto;
 
-            .swiper-wrapper{
+    .swiper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // width: 1145px;
+        width: calc((315px * 3) + (100px * 2));
+
+        .swiper-wrapper {
             width: 100%;
 
-                .swiper-slide{
-                    cursor: pointer;
-                    img{
-                        width: calc(315px * 1);
-                        height: calc(230px * 1);
-                        border-radius: 25px;
-                        margin-top: 2.5%;
-                        filter: blur(3px);
-                    }
-                }
+            .swiper-slide {
+                cursor: pointer;
 
-                .swiper-slide.swiper-slide-active{
-                    img{
-                        width: calc(315px * 1.1);
-                        height: calc(230px * 1.1);
-                        border-radius: 25px;
-                        margin-top: 0;
-                        filter: blur(0);
-                    }
+                img {
+                    width: calc(315px * 1);
+                    height: calc(230px * 1);
+                    border-radius: 25px;
+                    margin-top: 2.5%;
+                    filter: blur(3px);
+                }
+            }
+
+            .swiper-slide.swiper-slide-active {
+                img {
+                    width: calc(315px * 1.1);
+                    height: calc(230px * 1.1);
+                    border-radius: 25px;
+                    margin-top: 0;
+                    filter: blur(0);
                 }
             }
         }
-
-
-        
-
-        
     }
 
-    [id*="image-"]{
+
+
+
+
+}
+
+[id*="image-"] {
     background-color: rgb(130, 130, 130, 0.3);
     width: 100vw;
     height: calc(100vh + 6rem);
@@ -203,35 +223,48 @@ export default {
     top: 0;
     right: 0;
 
-    
-        div{
-            // background-color: white;
-            // box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.5);
-            padding: 0 1rem;
-            // width: 20rem;
-            // height: 20rem;
-            z-index: 9999;
-            position: absolute;
-            top: 50%;
-            right: 50%;
-            transform: translate(50%, -50%);
 
-            img{
-                height: 700px;
-                width: 630px;
-                border-radius: 25px;
-            }
-            
-            i{
-                background-color: white;
-                border-radius: 100%;
-                font-size: 30px;
-                position: relative;
-                top: 1.5rem;
-                left: 38rem;
-                color: red;
-                cursor: pointer;
-            }
+    div {
+        // background-color: white;
+        // box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.5);
+        padding: 0 1rem;
+        // width: 20rem;
+        // height: 20rem;
+        z-index: 9999;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+
+        img {
+            height: 700px;
+            width: 630px;
+            border-radius: 25px;
         }
+
+        i {
+            background-color: white;
+            border-radius: 100%;
+            font-size: 30px;
+            position: relative;
+            top: 1.5rem;
+            left: 38rem;
+            color: red;
+            cursor: pointer;
+        }
+    }
 }
+
+.button-red {
+    background-color: $secondary;
+    padding: .4rem 1rem;
+    border-color: transparent;
+    color: $primary;
+}
+
+.button-red:hover {
+        color: black;
+        background-color: transparent;
+        border-color: $secondary;
+    }
 </style>
