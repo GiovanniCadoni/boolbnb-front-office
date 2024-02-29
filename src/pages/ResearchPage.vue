@@ -29,6 +29,7 @@ export default {
     created() {
         this.getServices()
         this.sponsoredFilter()
+        this.searchByFilter(1)
         const apartmentsTest = this.$route.query.apartmentsTest;
         this.searchFromOtherPage(apartmentsTest);
     },
