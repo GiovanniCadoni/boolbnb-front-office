@@ -80,7 +80,7 @@ export default {
                     {{ result.message }}
                 </div>
 
-                <form @submit.prevent="sendForm">
+                <form @submit.prevent="sendForm" method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">La Tua Email </label>
                         <input type="email" class="form-control" id="email" v-model.trim="email" />
