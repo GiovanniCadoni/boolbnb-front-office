@@ -108,15 +108,15 @@ export default {
                 <div class="container">
                     <div class="row flex-column ms_gap">
                         <div class="col">
-                            <div class="mid-image">
-                                <img @click="searchByClick(4)" :src="this.locations[4].image" alt="">
-                                <span class="border rounded-pill bg-light p-1">{{ this.locations[4].name }}</span>
-                            </div>
-                        </div>
-                        <div class="col">
                             <div class="small-image">
                                 <img @click="searchByClick(5)" :src="this.locations[5].image" alt="">
                                 <span class="border rounded-pill bg-light p-1">{{ this.locations[5].name }}</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mid-image">
+                                <img @click="searchByClick(4)" :src="this.locations[4].image" alt="">
+                                <span class="border rounded-pill bg-light p-1">{{ this.locations[4].name }}</span>
                             </div>
                         </div>
                     </div>

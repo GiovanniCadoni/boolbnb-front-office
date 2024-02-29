@@ -23,9 +23,9 @@ export default {
         };
     },
     components: {
-    BaseCard,
-    PreviewCard
-},
+        BaseCard,
+        PreviewCard
+    },
     created() {
         this.getServices()
         this.sponsoredFilter()
@@ -57,16 +57,16 @@ export default {
             if (this.address !== '') {
                 paramsToSend.address = this.address
             }
-            if(this.kmRange !== 20){
+            if (this.kmRange !== 20) {
                 paramsToSend.kmRange = this.kmRange
             }
-            if(roomNumInt > 0) {
+            if (roomNumInt > 0) {
                 paramsToSend.rooms_number = roomNumInt
             }
-            if(bedsNumInt > 0){
+            if (bedsNumInt > 0) {
                 paramsToSend.beds_number = bedsNumInt
             }
-            if(bathroomNumInt > 0) {
+            if (bathroomNumInt > 0) {
                 paramsToSend.bathrooms_number = bathroomNumInt
             }
             axios.get(`${this.baseUrl}/api/apartments`, {
@@ -78,6 +78,7 @@ export default {
                 } else if (resp.data.success == true && resp.data.results.data.length == 0) {
                     this.errorMessage = 'Nessun appartamento trovato'
                 } else {
+                    console.log(resp);
                     this.apartments = resp.data.results.data
                 }
             }).finally(() => {
@@ -111,7 +112,7 @@ export default {
             axios.get(`${this.baseUrl}/api/apartments/sponsored`, {
                 params: paramsToSend
             }).then((resp) => {
-                this.apartments = []
+                this.sponsoredApartment = []
                 if (resp.data.success == false) {
                     this.errorMessage = resp.data.message
                 } else if (resp.data.success == true && resp.data.results.length == 0) {
@@ -158,74 +159,81 @@ export default {
 </script>
 
 <template>
-    <div class="wrapper">
+    <div class="container">
         <div class="row g-0">
-            <div class="col-2 px-3 py-4">
+            <div class="col-3 px-2 py-4">
                 <div class="container">
                     <div class="row flex-column">
-                        <div class="mt-2">
-                            <h4>Indirizzo:</h4>
-                            <input class="form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address">
+
+                        <div>
+                            <h4>Indirizzo</h4>
+                            <input class="form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..."
+                                v-model.trim="address">
                         </div>
-                        
+
                         <div class="mt-2">
+                            <label for="rangeSlider" class="sliderValue">Raggio di ricerca: {{ kmRange }} km</label>
                             <input type="range" id="rangeSlider" class="form-range" v-model="kmRange" min="0" max="50">
-                            <label for="rangeSlider" class="sliderValue">Raggio km: {{ kmRange }}</label>
                         </div>
-                        
-                        <h4>Servizi:</h4>
+
+                        <h4 class="mt-4">Stanze</h4>
+                        <div>
+                            <label class="sliderValue" for="rooms_number">Numero di stanze : {{ roomNum }}</label><br />
+                            <input type="range" class="form-range" id="rooms_number" name="rooms_number" min="0" max="10"
+                                list="markers" v-model="roomNum" />
+                        </div>
+
+                        <div class="mt-2">
+                            <label class="sliderValue" for="beds_number">Numero di letti : {{ bedsNum }}</label><br />
+                            <input type="range" class="form-range" id="beds_number" name="beds_number" min="0" max="10"
+                                list="markers" v-model="bedsNum" />
+                        </div>
+
+                        <div class="mt-2">
+                            <label class="sliderValue" for="bathrooms_number">Numero di bagni : {{ bathroomNum
+                            }}</label><br />
+                            <input type="range" class="form-range" id="bathrooms_number" name="bathrooms_number" min="0"
+                                max="10" list="markers" v-model="bathroomNum" />
+                        </div>
+
+                        <h4 class="mt-4">Servizi:</h4>
                         <div v-for="(service, index) in services" class="form-check mb-3">
                             <input type="checkbox" :name="service.id" :value="service.id" :id="`${service.id}`"
                                 v-model="selectedServices" @click="checkboxFilter($event)" :checked="service.checked">
-                            <label class="ms-3 " :for="`${service.id}`">{{ service.name }}</label>
+                            <label class="ms-3 " :for="`${service.id}`"> {{ service.name }}</label>
                         </div>
-                        <div class="mt-2">
-                            <label class="sliderValue" for="rooms_number">Numero di stanze : {{ roomNum }}</label><br />
-                            <input type="range" class="form-range" id="rooms_number" name="rooms_number" min="0" max="10" list="markers" v-model="roomNum" />
-                        </div>
-                        
-                        <div class="mt-2">
-                            <label class="sliderValue" for="beds_number">Numero di letti : {{ bedsNum }}</label><br />
-                            <input type="range" class="form-range" id="beds_number" name="beds_number" min="0" max="10" list="markers" v-model="bedsNum" />
-                        </div>
-                        
-                        <div class="mt-2">
-                            <label class="sliderValue" for="bathrooms_number">Numero di bagni : {{ bathroomNum }}</label><br />
-                            <input type="range" class="form-range" id="bathrooms_number" name="bathrooms_number" min="0" max="10" list="markers" v-model="bathroomNum" />
-                        </div>
-                        
 
-                        <button class="btn btn-primary mt-3" @click="getFilterData()">Filtra</button>
+                        <button class="btn btn-primary mt-4" @click="getFilterData()">Filtra</button>
                     </div>
                 </div>
-
-
             </div>
-            <div class="col-10 ms_border px-2 py-4">
+
+            <div class="col-9 ms_border px-2 py-4">
                 <div class="container ">
                     <div class="row gy-4 justify-content-start flex-wrap">
-                        <div class="col-9" v-for="(sponsored) in sponsoredApartment">
+                        <div class="col-12" v-for="(sponsored) in sponsoredApartment">
                             <PreviewCard :apartment="sponsored" />
                         </div>
-                        <div class="col-9" v-for="(apartment) in apartments">
+                        <div class="col-12" v-for="(apartment) in apartments">
                             <PreviewCard :apartment="apartment" />
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .wrapper {
-    height: calc(100vh - 258px);
+    // height: calc(100vh - 258px);
     width: 100%;
     overflow-y: auto;
 }
 
 .ms_border {
-    border-left: 1px solid rgb(201, 201, 201);
+    border-left: 2px solid rgb(201, 201, 201);
 }
 </style>
+
