@@ -18,7 +18,8 @@ export default {
             lastPage: 1,
             total: 0,
             selectedServices: [],
-            service_filter: []
+            service_filter: [],
+            sponsoredApartment : []
         };
     },
     components: {
@@ -27,16 +28,11 @@ export default {
 },
     created() {
         this.getServices()
+        this.sponsoredFilter()
         const apartmentsTest = this.$route.query.apartmentsTest;
         this.searchFromOtherPage(apartmentsTest);
     },
     methods: {
-        getApartments() {
-            axios.get(`${this.baseUrl}/api/apartments`).then((resp) => {
-                
-                this.apartments = resp.data.results.data
-            })
-        },
         getServices() {
             axios.get(`${this.baseUrl}/api/services`).then((resp) => {
                 this.services = resp.data.results
@@ -75,7 +71,6 @@ export default {
             axios.get(`${this.baseUrl}/api/apartments`, {
                 params: paramsToSend
             }).then((resp) => {
-                console.log(resp);
                 this.apartments = []
                 if (resp.data.success == false) {
                     this.errorMessage = resp.data.message
@@ -88,6 +83,43 @@ export default {
                 this.loading = false;
             });
 
+        },
+        sponsoredFilter(){
+            const roomNumInt = parseInt(this.roomNum)
+            const bedsNumInt = parseInt(this.bedsNum)
+            const bathroomNumInt = parseInt(this.bathroomNum)
+            const paramsToSend = {}
+            if (this.selectedServices.length > 0) {
+                paramsToSend.services = this.selectedServices
+            }
+            if (this.address !== '') {
+                paramsToSend.address = this.address
+            }
+            if(this.kmRange !== 20){
+                paramsToSend.kmRange = this.kmRange
+            }
+            if(roomNumInt > 0) {
+                paramsToSend.rooms_number = roomNumInt
+            }
+            if(bedsNumInt > 0){
+                paramsToSend.beds_number = bedsNumInt
+            }
+            if(bathroomNumInt > 0) {
+                paramsToSend.bathrooms_number = bathroomNumInt
+            }
+            axios.get(`${this.baseUrl}/api/apartments/sponsored`, {
+                params: paramsToSend
+            }).then((resp) => {
+                this.apartments = []
+                if (resp.data.success == false) {
+                    this.errorMessage = resp.data.message
+                } else if (resp.data.success == true && resp.data.results.length == 0) {
+                    this.errorMessage = 'Nessun appartamento trovato'
+                } else {
+                    this.sponsoredApartment = resp.data.results
+                    console.log(this.sponsoredApartment);
+                }
+            })
         },
         checkboxFilter(event) {
             if (event.target.checked) {
@@ -117,6 +149,7 @@ export default {
             }).then((resp) => {
                 this.service_filter = resp.data
                 this.searchByFilter(1)
+                this.sponsoredFilter()
             })
         }
     }
@@ -170,6 +203,9 @@ export default {
             <div class="col-10 ms_border px-2 py-4">
                 <div class="container ">
                     <div class="row gy-4 justify-content-start flex-wrap">
+                        <div class="col-9" v-for="(sponsored) in sponsoredApartment">
+                            <PreviewCard :apartment="sponsored" />
+                        </div>
                         <div class="col-9" v-for="(apartment) in apartments">
                             <PreviewCard :apartment="apartment" />
                         </div>
