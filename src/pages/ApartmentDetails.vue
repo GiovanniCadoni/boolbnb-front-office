@@ -69,15 +69,29 @@ export default {
         <h2 class="fw-bold">{{ curApartment.title }}</h2>
         <p class="text-secondary fst-italic"><span class="text-success">{{ curApartment.address }}</span></p>
 
-        <div class="swiper-container">
-            <!-- <h3 class="mt-4">Foto appartamento ({{ curApartment.images.length }}) </h3> -->
+        <h3 class="mt-4">Foto appartamento ({{ curApartment.images.length }}) </h3>
+
+        <div class="swiper-container d-sm-none d-md-inline-block">
+            
             <swiper :modules="modules" :slides-per-view="3" :space-between="100" :loop="true" :centered-slides="true"
                 navigation :pagination="{ clickable: true }" :mousewheel="{ enabled: true }" :autoplay="{ delay: 3000 }"
                 @swiper="onSwiper" @slideChange="onSlideChange">
 
                 <swiper-slide v-for="image in curApartment.images">
-                    <!-- <a data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false"
-                        :aria-controls="`image-${image.id}`"> -->
+                    <a @click="toggleCollapse(image.id)">
+                        <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+                    </a>
+                </swiper-slide>
+            </swiper>
+
+        </div>
+
+        <div class="swiper-container d-sm-inline-block d-md-none">
+            <swiper :modules="modules" :slides-per-view="1" :space-between="0" :loop="true" :centered-slides="true"
+                navigation :pagination="{ clickable: true }" :mousewheel="{ enabled: true }" :autoplay="{ delay: 3000 }"
+                @swiper="onSwiper" @slideChange="onSlideChange">
+
+                <swiper-slide v-for="image in curApartment.images">
                     <a @click="toggleCollapse(image.id)">
                         <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
                     </a>
@@ -88,8 +102,6 @@ export default {
 
         <div v-for="image in curApartment.images" :id="`image-${image.id}`" :class="{ 'collapse': !image.isExpanded }" @click="toggleCollapse(image.id)">
             <div class="card-container">
-                <!-- <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" -->
-                    <!-- aria-expanded="false" :aria-controls="`image-${image.id}`"><i class="fa-solid fa-circle-xmark"></i></a> -->
                     <div class="position-relative top-100 left-0">
                         <a><i class="fa-solid fa-circle-xmark"></i></a>
                         <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
@@ -97,43 +109,15 @@ export default {
             </div>
         </div>
 
-        <!-- <a v-for="service in curApartment.services"
-            class="btn btn-primary"
-            data-bs-toggle="collapse"
-            :data-bs-target="`#${service.name}-service`"
-            aria-expanded="false"
-            :aria-controls="`${service.name}-service`"
-        >
-        {{ service.name }}</a>
 
-        <div v-for="service in curApartment.services" :id="`${service.name}-service`" class="collapse">
-            <div>
-                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#${service.name}-service`" aria-expanded="false" :aria-controls="`${service.name}-service`"><i class="fa-solid fa-circle-xmark"></i></a>
-                {{ service.name }}
-            </div>
-        </div> -->
-
-        <!-- <div class="collapse" id="user-info-popup">
-                <div id="popup-block">
-                    <a class="dropdown-item" data-bs-toggle="collapse" data-bs-target="#user-info-popup" aria-expanded="false" aria-controls="user-info-popup"><i class="fa-solid fa-circle-xmark"></i></a>
-    
-                <div>
-                    <h5>Nome:</h5>
-                    <span>Ciao</span>
-                </div>
-                <div>
-                    <h5>E-mail:</h5>
-                    <span>Dio Porco</span>
-                </div>
-                </div>
-            </div> -->
+        
 
 
         <div class="row">
             <div class="col-9">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="mt-4">I nostri Servizi</h3>
+                        <h3 class="mt-4">Servizi</h3>
                         <div class="row">
                             <div v-for="(service) in curApartment.services" class="col-6 g-2">
                                 <span class="badge border text-dark">
@@ -227,7 +211,7 @@ export default {
 }
 
 [id*="image-"] {
-    background-color: rgb(130, 130, 130, 0.3);
+    background-color: rgb(130, 130, 130, 0.5);
     width: 100vw;
     height: calc(100vh + 6rem);
     z-index: 9998;
@@ -237,11 +221,7 @@ export default {
 
 
     .card-container {
-        // background-color: white;
-        // box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.5);
         padding: 0 1rem;
-        // width: 20rem;
-        // height: 20rem;
         z-index: 9999;
         position: absolute;
         top: 50%;
@@ -249,8 +229,8 @@ export default {
         transform: translate(50%, -50%);
 
         img {
-            height: 700px;
-            width: 850px;
+            height: 560px;
+            width: 680px;
             border-radius: 25px;
         }
 
@@ -259,8 +239,8 @@ export default {
             border-radius: 100%;
             font-size: 50px;
             position: absolute;
-            top: -25px;
-            left: 825px;
+            bottom: 535px;
+            left: 655px;
             color: red;
             cursor: pointer;
         }
