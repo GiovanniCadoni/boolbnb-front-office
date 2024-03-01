@@ -70,7 +70,7 @@ export default {
             <div class="position-relative">
                 <input class="form-control rounded-4" type="text" @input="searchPlaces" name="search-bar"
                     id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()">
-                <div v-if="address.length > 1" class="position-absolute">
+                <div v-if="address.length > 1 && places.length > 0" class="position-absolute">
                     <ul class="my-card px-3 bg-white rounded-4">
                         <li class="" v-for="place in places" :key="place.id" @click="selectPlace(place)">{{
                             place.address.freeformAddress }}</li>

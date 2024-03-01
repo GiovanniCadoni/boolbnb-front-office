@@ -192,7 +192,7 @@ export default {
                             <div class="position-relative">
                                 <input class="form-control rounded-4" type="text" name="search-bar" @input="searchPlaces" id="search-bar"
                                     placeholder="Cerca..." v-model.trim="address">
-                                <div v-if="address.length > 1" class="position-absolute">
+                                <div v-if="address.length > 1 && places.length > 0" class="position-absolute">
                                     <ul class="my-cards px-3 bg-white rounded-4">
                                         <li class="" v-for="place in places" :key="place.id" @click="selectPlace(place)">{{
                                             place.address.freeformAddress }}</li>
@@ -287,6 +287,17 @@ li:hover {
     height: 140px;
     overflow-y:auto;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+ul {
+  list-style-type: none;
+}
+li {
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+li:hover {
+  background-color: #f0f0f0;
 }
 </style>
 
