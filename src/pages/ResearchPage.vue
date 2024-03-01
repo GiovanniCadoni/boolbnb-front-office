@@ -20,7 +20,8 @@ export default {
             selectedServices: [],
             service_filter: [],
             sponsoredApartment : [],
-            errorMessage: ''
+            errorMessage: '',
+            errorSponsoredMessage: ''
         };
     },
     components: {
@@ -73,6 +74,7 @@ export default {
             axios.get(`${this.baseUrl}/api/apartments`, {
                 params: paramsToSend
             }).then((resp) => {
+                this.errorMessage = ''
                 this.apartments = []
                 if (resp.data.success == false) {
                     this.errorMessage = resp.data.message
@@ -113,11 +115,12 @@ export default {
             axios.get(`${this.baseUrl}/api/apartments/sponsored`, {
                 params: paramsToSend
             }).then((resp) => {
+                this.errorSponsoredMessage = ''
                 this.sponsoredApartment = []
                 if (resp.data.success == false) {
                     this.errorMessage = resp.data.message
                 } else if (resp.data.success == true && resp.data.results.length == 0) {
-                    this.errorMessage = 'Nessun appartamento trovato'
+                    this.errorSponsoredMessage = 'Nessun appartamento trovato'
                 } else {
                     this.sponsoredApartment = resp.data.results
                     console.log(this.sponsoredApartment);
