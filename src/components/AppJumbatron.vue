@@ -49,8 +49,8 @@ export default {
             <h4 class="d-none d-lg-block m-0">Inizia qui la tua ricerca</h4>
             <input class="form-width form-control form-control rounded-4 ms-2" type="text" name="search-bar" id="search-bar" placeholder="Cerca..." v-model.trim="address" @keypress.enter="searchByAddress()">
             <!-- <button class="btn btn-primary px-4" @click="searchByAddress()"><i class="fa-solid fa-magnifying-glass"></i></button> -->
-            <router-link :to="{ name: 'research' }" class="nav-link"><button class="btn rounded-4 btn-sm button-red d-lg-none px-4"><i class="fa-solid fa-magnifying-glass"></i></button></router-link>
-            <router-link :to="{ name: 'research' }" class="nav-link"><button class="btn rounded-4 d-none d-lg-block button-red px-4"><i class="fa-solid fa-magnifying-glass"></i></button></router-link>
+            <button class="btn rounded-4 btn-sm button-red d-lg-none px-4" @click="searchByAddress()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="btn rounded-4 d-none d-lg-block button-red px-4" @click="searchByAddress()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         
     </div>
