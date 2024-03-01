@@ -204,6 +204,7 @@ export default {
     display: absolute;
     border-radius: calc(25px + 5px);
     transform: scale(1.02);
+    z-index: 0;
 
     span{
         color: #f31c19;
