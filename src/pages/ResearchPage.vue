@@ -19,7 +19,8 @@ export default {
             total: 0,
             selectedServices: [],
             service_filter: [],
-            sponsoredApartment : []
+            sponsoredApartment: [],
+            places: [],
         };
     },
     components: {
@@ -86,7 +87,7 @@ export default {
             });
 
         },
-        sponsoredFilter(){
+        sponsoredFilter() {
             const roomNumInt = parseInt(this.roomNum)
             const bedsNumInt = parseInt(this.bedsNum)
             const bathroomNumInt = parseInt(this.bathroomNum)
@@ -97,16 +98,16 @@ export default {
             if (this.address !== '') {
                 paramsToSend.address = this.address
             }
-            if(this.kmRange !== 20){
+            if (this.kmRange !== 20) {
                 paramsToSend.kmRange = this.kmRange
             }
-            if(roomNumInt > 0) {
+            if (roomNumInt > 0) {
                 paramsToSend.rooms_number = roomNumInt
             }
-            if(bedsNumInt > 0){
+            if (bedsNumInt > 0) {
                 paramsToSend.beds_number = bedsNumInt
             }
-            if(bathroomNumInt > 0) {
+            if (bathroomNumInt > 0) {
                 paramsToSend.bathrooms_number = bathroomNumInt
             }
             axios.get(`${this.baseUrl}/api/apartments/sponsored`, {
@@ -153,6 +154,23 @@ export default {
                 this.searchByFilter(1)
                 this.sponsoredFilter()
             })
+        },
+        searchPlaces() {
+            if (!this.address) {
+                this.places = [];
+                return;
+            }
+            axios.get('https://api.tomtom.com/search/2/search/' + encodeURIComponent(this.address) + '.json?key=0Uo0D3xj0wcPYB8W6Ybk5SuoiIJK1I1M')
+                .then(response => {
+                    console.log(response);
+                    this.places = response.data.results;
+                })
+                .catch(error => {
+                    console.error('Errore nella ricerca dei luoghi:', error);
+                });
+        },
+        selectPlace(place) {
+            this.address = place.address.freeformAddress;
         }
     }
 }
@@ -167,8 +185,16 @@ export default {
 
                         <div>
                             <h4>Indirizzo</h4>
-                            <input class="form-control" type="text" name="search-bar" id="search-bar" placeholder="Cerca..."
-                                v-model.trim="address">
+                            <div class="position-relative">
+                                <input class="form-control rounded-4" type="text" name="search-bar" @input="searchPlaces" id="search-bar"
+                                    placeholder="Cerca..." v-model.trim="address">
+                                <div v-if="address.length > 1" class="position-absolute">
+                                    <ul class="my-cards px-3 bg-white rounded-4">
+                                        <li class="" v-for="place in places" :key="place.id" @click="selectPlace(place)">{{
+                                            place.address.freeformAddress }}</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mt-2">
@@ -234,6 +260,22 @@ export default {
 
 .ms_border {
     border-left: 2px solid rgb(201, 201, 201);
+}
+
+ul {
+  list-style-type: none;
+}
+li {
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+li:hover {
+  background-color: #f0f0f0;
+}
+.my-cards {
+    height: 140px;
+    overflow-y:auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 </style>
 
