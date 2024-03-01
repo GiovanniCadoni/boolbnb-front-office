@@ -28,7 +28,7 @@ export default {
     },
     created() {
         this.getServices()
-        this.searchByFilter(1)
+        // this.searchByFilter(1)
         const apartmentsTest = this.$route.query.apartmentsTest;
         this.searchFromOtherPage(apartmentsTest);
     },
