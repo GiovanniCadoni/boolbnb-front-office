@@ -53,6 +53,14 @@ export default {
             });
 
     },
+    methods: {
+        toggleCollapse(imageId) {
+            const image = this.curApartment.images.find(img => img.id === imageId);
+            if (image) {
+                image.isExpanded = !image.isExpanded;
+            }
+        }
+    },
 }
 </script>
 
@@ -68,8 +76,9 @@ export default {
                 @swiper="onSwiper" @slideChange="onSlideChange">
 
                 <swiper-slide v-for="image in curApartment.images">
-                    <a data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false"
-                        :aria-controls="`image-${image.id}`">
+                    <!-- <a data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" aria-expanded="false"
+                        :aria-controls="`image-${image.id}`"> -->
+                    <a @click="toggleCollapse(image.id)">
                         <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
                     </a>
                 </swiper-slide>
@@ -77,11 +86,14 @@ export default {
 
         </div>
 
-        <div v-for="image in curApartment.images" :id="`image-${image.id}`" class="collapse">
-            <div>
-                <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`"
-                    aria-expanded="false" :aria-controls="`image-${image.id}`"><i class="fa-solid fa-circle-xmark"></i></a>
-                <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+        <div v-for="image in curApartment.images" :id="`image-${image.id}`" :class="{ 'collapse': !image.isExpanded }" @click="toggleCollapse(image.id)">
+            <div class="card-container">
+                <!-- <a class="dropdown-item" data-bs-toggle="collapse" :data-bs-target="`#image-${image.id}`" -->
+                    <!-- aria-expanded="false" :aria-controls="`image-${image.id}`"><i class="fa-solid fa-circle-xmark"></i></a> -->
+                    <div class="position-relative top-100 left-0">
+                        <a><i class="fa-solid fa-circle-xmark"></i></a>
+                        <img :src="`${baseUrl}/storage/${image.image_path}`" alt="">
+                    </div>
             </div>
         </div>
 
@@ -224,7 +236,7 @@ export default {
     right: 0;
 
 
-    div {
+    .card-container {
         // background-color: white;
         // box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.5);
         padding: 0 1rem;
@@ -238,17 +250,17 @@ export default {
 
         img {
             height: 700px;
-            width: 630px;
+            width: 850px;
             border-radius: 25px;
         }
 
         i {
             background-color: white;
             border-radius: 100%;
-            font-size: 30px;
-            position: relative;
-            top: 1.5rem;
-            left: 38rem;
+            font-size: 50px;
+            position: absolute;
+            top: -25px;
+            left: 825px;
             color: red;
             cursor: pointer;
         }
