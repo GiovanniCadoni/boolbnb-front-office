@@ -6,7 +6,7 @@ export default {
 
 <template>
   <div class="wrapper">
-    <h1 class="text-center pt-5">404 Not found</h1>
+    <h1 class="text-center pt-5">Nessun appartamento  trovato</h1>
   </div>
 </template>
 

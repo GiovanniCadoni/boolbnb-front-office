@@ -49,20 +49,21 @@ export default {
                     address: this.locations[index].name,
                 }
             }).then((resp) => {
+                console.log(resp);
 
                 if (resp.data.success == false) {
-                    this.errorMessage = resp.data.message
+                    this.errorMessage = resp.data.message    
                 } else if(resp.data.success == true && resp.data.results.data.length == 0){
-                    this.errorMessage = 'Nessun appartamento trovato'
-                } else {
+                    this.$router.push({ name: "not-found" });
+                } else {                     
                     this.apartments = resp.data.results.data
-                     this.$router.push({
-                         path: 'research',
-                         query: {
-                             apartmentsTest: this.locations[index].name
-                         }
+                    this.$router.push({
+                        path: 'research',
+                        query: {
+                            apartmentsTest: this.locations[index].name
+                        }
                     });
-                }
+                }        
             })
 
         }

@@ -19,7 +19,8 @@ export default {
             total: 0,
             selectedServices: [],
             service_filter: [],
-            sponsoredApartment : []
+            sponsoredApartment : [],
+            errorMessage: ''
         };
     },
     components: {
@@ -208,7 +209,14 @@ export default {
                 </div>
             </div>
 
-            <div class="col-9 ms_border px-2 py-4">
+            <div v-if="errorMessage !== ''" class="col-9 ms_border px-2 py-4">
+                <div class="container ">
+                    <div class="row gy-4 justify-content-start flex-wrap">
+                        <h1>{{ errorMessage }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="col-9 ms_border px-2 py-4">
                 <div class="container ">
                     <div class="row gy-4 justify-content-start flex-wrap">
                         <div class="col-12" v-for="(sponsored) in sponsoredApartment">
