@@ -188,7 +188,7 @@ export default {
                     height: calc(230px * 1);
                     border-radius: 25px;
                     margin-top: 2.5%;
-                    filter: blur(3px);
+                    filter: opacity(0.5)
                 }
             }
 
@@ -199,7 +199,7 @@ export default {
                     object-fit: cover;
                     border-radius: 25px;
                     margin-top: 0;
-                    filter: blur(0);
+                    filter: opacity(1)
                 }
             }
         }
