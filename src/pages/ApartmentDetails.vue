@@ -196,6 +196,7 @@ export default {
                 img {
                     width: calc(315px * 1.1);
                     height: calc(230px * 1.1);
+                    object-fit: cover;
                     border-radius: 25px;
                     margin-top: 0;
                     filter: blur(0);

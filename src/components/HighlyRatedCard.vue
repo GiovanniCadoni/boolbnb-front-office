@@ -55,6 +55,8 @@ a {
 
 img {
     width: 300px;
+    height: 180px;
+    object-fit: cover;
     transition: transform 0.5s ease;
 }
 

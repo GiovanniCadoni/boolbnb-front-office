@@ -65,7 +65,9 @@ export default {
 }
 
 img {
-    max-width: 200px;
+    width: 300px;
+    height: 170px;
+    object-fit: cover;
 }
 
 .my-text-red {
