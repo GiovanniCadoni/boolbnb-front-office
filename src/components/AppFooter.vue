@@ -15,7 +15,7 @@ export default {
                 <div class="col-6 d-flex flex-row align-items-center">
                     <div class="col-12">
                         <h4 class="ms_red fw-bold">BoolBnB</h4>
-                        <p>Your ultimate booking experince since 1997!</p>
+                        <p>Your ultimate booking experince since 2024!</p>
                         <p>BoolBnB ©</p>
                     </div>
                 </div>
